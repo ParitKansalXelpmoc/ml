@@ -134,10 +134,10 @@ Where:
 - $x_i$ are the data points in cluster $C_j$.
 - $\mu_j$ is the centroid of cluster $j$.
 
-- **Higher Score**: Indicates
 
- that clusters are well-separated and compact.
-- **Lower Score**: Suggests overlapping or poorly defined clusters.
+**Higher Score**: Indicates that clusters are well-separated and compact.
+
+**Lower Score**: Suggests overlapping or poorly defined clusters.
 
 
 
