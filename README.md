@@ -1,6 +1,56 @@
+
+
+
+
+
+
+
+
+**What is Deep Learning ?**
+- it is subset of ML which is then subset of AI
+- It aims to create human brain type structure
+- It identifies mon linear relation which is usually not identified by traditionl ML models
+- It contain input, hidden and output layers whixh are conneted to each others
+- eg ANN, CNN, RNN, LSTM, auto encoders, RAG
+- used for Computer Vision, NLP
+
+**How does Deep Learning differ from traditional Machine Learning?**
+- Mention all posible ML models
+- Mention all posible Deep learning models
+- Feature Extraction: Traditional machine learning relies on manual feature extraction, while deep learning automates this process, excelling with large datasets.
+- Performance with Big Data: Deep learning algorithms improve with larger datasets, outperforming traditional methods in complex tasks.
+
+**What is a Neural Network?**
+- Based on human neural network
+- Continuously update or we can say learn
+- consist of newrons connected to each other in Input, hidden and putput layers
+- Pass data layer by layer and activate neurons and generate output which is then used to calculate loss and this the used to calculate gradient and update the parameters.
+
+**Explain the concept of a neuron in Deep Learning.**
+- Input is multiplied by weight and then add bais
+- Apply a activation function which is responsible for for non linearity
+
+**What is an activation function in a Neural Network?**
+- Activation functions determine the output of | neurons and introduce non-linearity into neural networks.
+- They enable neural networks to learn complex patterns and perform advanced tasks.
+- Mention some activation functions
+
+**Give some activation function**
+- Sigmoid
+   - $f(x) = \frac{1}{1+e^{-x}}$
+   - Suffer from saturation when -ve it gives 0 and for +ve it gives 1
+- Tanh
+   - $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$
+   - Suffer from saturation when -ve it gives -1 and for +ve it gives 1
+- ReLu
+   - $\text{ReLU}(x) = \max(0, x)$
+   - Do not suffer from saturation
+- Leaky relu
+   - $\text{Leaky ReLU}(x) = \max(0.01x, x)$
+   - Do not suffer from saturation
+
 # ML
 - **Decision Tree**
-- **SVM**
 - **Naive Bayes Classifier**
 
 
@@ -94,6 +144,8 @@ For epoch in range(10):
 $\text{Loss} = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{k} \left( y^{(i)}_k \cdot \log(\hat{y}^{(i)}_k) \right)$
 
 
+## Imp Points
+- We can apply L1, L2, elatic net regression
 
 
 
@@ -102,15 +154,44 @@ $\text{Loss} = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{k} \left( y^{(i)}_k \cdot
 
 
 
+# KNN
+It based on the concept "You are the average of the five people you spend the most time with"
+
+### Steps Involved:
+1. Normalize the Data
+2. Find the Distance of All Points:    
+     - Use Euclidean distance:  
+       $d(x, y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$
+3. Identify the K Nearest Neighbors
+4. Determine the Output:
+   - KNN for Classification:
+     - **Majority Vote**: The label of the query point is determined by the majority class among the K nearest neighbors.
+   - KNN for Regression:
+     - **Average (or Weighted Average)**: The predicted value for the query point is the average (or a weighted average) of the values of the K nearest neighbors.
 
 
 
 
 
+# SVM (Support Vector Machine)
+![](https://i.postimg.cc/N0YydtDp/Untitled.png)
 
+- The aim of this is to maximise the distance between $π_+$ and $π_-$ and minimise the distance distance of wrong output pints to there repective correct margin plane.
 
+$\arg\min_{w*, b*} \left( Margin Error + Classification Error\right)$
 
+$\arg\min_{w*, b*} \left( \frac{1}{2} ||w||^2 + C \sum_{i=1}^n \zeta_i \right)$
 
+### where:
+- **$w$** : Weight vector.
+- **$b$** : Bias term.
+- **$C $** : Regularization parameter.
+- **$\frac{1}{2} ||w||^2 $** : Regularization term that penalizes large weights.
+- **$\sum_{i=1}^n \zeta_i $** : Sum of the slack variables $𝜁_𝑖$​, which represent the amount by which each data point deviates from the correct classification margin.
+
+This objective function seeks to minimize a combination of the margin (through the regularization term) and the misclassification error (through the slack variables). The goal is to find the optimal $w*$ and $b*$ that achieve this balance.
+
+**We use Kernels for non linear seperable data**
 
 
 
