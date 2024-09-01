@@ -1,5 +1,10 @@
 # ML
 
+
+
+
+
+
 # Linear Regression
    
    - $X$: The matrix of input features (with dimensions $1000 \times p$, where $1000$ is the number of observations and $9$ is the number of predictors and first column containing 1 only).
@@ -24,6 +29,19 @@ $\beta_{n} = \beta_{n-1} - \frac{\alpha}{1000} \frac{dL}{d\beta}$ .
 ## Polynomial Regression
 
 Suppose we have three features and we want apply degree 2 polynonial features then calculate or make ney features -> $x^2 , y^2, z^2, xy, xz, yz$. Now apply normal linear regression.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Logistic regression
 
@@ -62,6 +80,16 @@ For epoch in range(10):
 - $W = W_{n-1} + \frac{\eta}{m} X^T (Y - \hat{Y})$
 - $\hat{Y} = X W_{n-1}$
 
+## Softmax Regression / Multinomial Logistic Regression
+**1. Method-One**
+- Apply one hot encoding
+
+ ![](https://i.ibb.co/bW3qrVm/Untitled-1.png)
+- Train model for each column
+
+**2. Method-Two**
+
+$\text{Loss} = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{k} \left( y^{(i)}_k \cdot \log(\hat{y}^{(i)}_k) \right)$
 
 
 
@@ -166,6 +194,20 @@ $0.7 \times 0.7 \times 0.7 + 0.7 \times 0.7 \times 0.3 + 0.7 \times 0.3 \times 0
 
 #### Multi-Layered Stacking
 ![](https://i.ibb.co/6rfBBmS/Untitled.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # K-Means
 ### Choosing the Right Number of Clusters
