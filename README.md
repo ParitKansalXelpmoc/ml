@@ -1,5 +1,6 @@
+# ML
 
-## Linear Regression
+# Linear Regression
    
    - $X$: The matrix of input features (with dimensions $1000 \times p$, where $1000$ is the number of observations and $9$ is the number of predictors and first column containing 1 only).
    - $Y$: The vector of observed outcomes (with dimensions $1000 \times 1$).
@@ -24,6 +25,42 @@ $\beta_{n} = \beta_{n-1} - \frac{\alpha}{1000} \frac{dL}{d\beta}$ .
 
 Suppose we have three features and we want apply degree 2 polynonial features then calculate or make ney features -> $x^2 , y^2, z^2, xy, xz, yz$. Now apply normal linear regression.
 
+# Logistic regression
+
+![](https://i.ibb.co/StJbWBw/Untitled.png)
+
+### 1. Percepton Trick
+- If a point is in wrong region then move line towards the line
+- Do not work bcoz it stops once a boundry is created thus not give best result
+
+![](https://i.ibb.co/ByYr0pL/Untitled.png)
+
+for n in range(1000): 
+- $W_n = W_{n-1} + \eta(Y_i - \hat{Y}_i)x_i^T$
+- $\hat{Y_i} = x_i W_{n-1}$
+
+**$W_n$**: The updated weight vector after the $n$ th iteration of dimension 10×1.
+
+**$W_{n-1}$**: The weight vector from the previous $(n-1)$ th iteration.
+
+**$\eta$**: The learning rate.
+
+**$x_i$**: The feature vector corresponding to the $i$ th data point of dimension 1×10.
+
+### 2. Sigmoid function
+
+$\sigma(x) = \frac{1}{1 + e^{-x}}$
+
+for n in range(1000): 
+- $W_n = W_{n-1} + \eta(Y_i - \hat{Y}_i)x_i^T$
+- $\hat{Y_i} = \sigma(x_i W_{n-1})$
+  
+### 3. Maximum Likelihood
+$\text{Loss} = -\frac{1}{m} \sum_{i=1}^{m} \left( y_i \cdot \log(\hat{y}_i) + (1 - y_i) \cdot \log(1 - \hat{y}_i) \right)$
+
+For epoch in range(10):
+- $W = W_{n-1} + \frac{\eta}{m} X^T (Y - \hat{Y})$
+- $\hat{Y} = X W_{n-1}$
 
 
 
@@ -58,9 +95,8 @@ Suppose we have three features and we want apply degree 2 polynonial features th
 
 
 
-# ML
 
-## Ensemble Learning
+# Ensemble Learning
 Based on the concept of the wisdom of the crowd, decisions made by multiple models have a higher chance of being correct. Ensemble learning helps convert a low-bias, high-variance model into a low-bias, low-variance model because the random/outliers are distributed among various models instead of going to a single model.
 
 #### Voting Ensemble
@@ -131,7 +167,7 @@ $0.7 \times 0.7 \times 0.7 + 0.7 \times 0.7 \times 0.3 + 0.7 \times 0.3 \times 0
 #### Multi-Layered Stacking
 ![](https://i.ibb.co/6rfBBmS/Untitled.png)
 
-## K-Means
+# K-Means
 ### Choosing the Right Number of Clusters
 #### 1. Elbow Method / The Within Cluster Sum of Squares (WCSS)
 For each cluster, calculate the squared distance of other points in the same cluster to the centroid and sum them. Calculate for each cluster.
