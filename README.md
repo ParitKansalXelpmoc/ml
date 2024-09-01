@@ -1,5 +1,7 @@
 # ML
-
+- **Decision Tree**
+- **SVM**
+- **Naive Bayes Classifier**
 
 
 
