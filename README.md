@@ -1,3 +1,63 @@
+
+## Linear Regression
+   
+   - $X$: The matrix of input features (with dimensions $1000 \times p$, where $1000$ is the number of observations and $9$ is the number of predictors and first column containing 1 only).
+   - $Y$: The vector of observed outcomes (with dimensions $1000 \times 1$).
+   - $\beta$: The vector of estimated coefficients (with dimensions $10 \times 1$).
+   - $\hat{Y}$: The vector of predicted values (with dimensions $1000 \times 1$).
+
+**Predicting Values ($\hat{Y}$)**:
+ $\hat{Y} = X\beta$
+
+**1. Closed Form Formula / The Ordinary Least Squares (OLS)**
+
+ $\beta = (X^T X)^{-1} X^T Y$
+
+**2. Non-Closed Form Formula**
+Run these for n epoches
+
+$\frac{dL}{d\beta} = -2X^T Y + 2X^T X \beta$ 
+
+$\beta_{n} = \beta_{n-1} - \frac{\alpha}{1000} \frac{dL}{d\beta}$ .
+
+## Polynomial Regression
+
+Suppose we have three features and we want apply degree 2 polynonial features then calculate or make ney features -> $x^2 , y^2, z^2, xy, xz, yz$. Now apply normal linear regression.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # ML
 
 ## Ensemble Learning
@@ -87,7 +147,7 @@ $S(i) = \frac{b(i) - a(i)}{\max{a(i), b(i)}}$
 
 Where:
 - $S(i)$ is the silhouette coefficient for data point $i$.
-- $a(i)$ is the average distance between $i$ and all the other data points in the same cluster as $i$.
+- $a(i)$ is the average distance between $i$ and all the other data points in the same cluster as $i$ .
 - $b(i)$ is the smallest average distance from $i$ to all clusters to which $i$ does not belong. In other words, it's the distance to the nearest cluster that $i$ is not a part of.
 
 The silhouette coefficient $S(i)$ ranges between -1 and 1:
@@ -95,7 +155,7 @@ The silhouette coefficient $S(i)$ ranges between -1 and 1:
 - $S(i)$ close to 0 indicates that the data point is on or very close to the decision boundary between two neighboring clusters.
 - $S(i)$ close to -1 indicates that the data point might have been assigned to the wrong cluster.
 
-Find the average $S_{\text{avg}}$:
+Find the average $S_{\text{avg}}$ :
 
 $S_{\text{avg}} = \frac{\Sigma S(i)}{n}$
 
@@ -120,8 +180,8 @@ This measures the dispersion **between different clusters**. It is defined as:
 $B_k = \sum_{j=1}^{k} n_j (\mu_j - \mu)(\mu_j - \mu)^T$
 
 Where:
-- $n_j$ is the number of data points in cluster $j$.
-- $\mu_j$ is the centroid of cluster $j$.
+- $n_j$ is the number of data points in cluster $j$ .
+- $\mu_j$ is the centroid of cluster $j$ .
 - $\mu$ is the overall mean of the data.
 
 #### **Within-Cluster Dispersion Matrix ($W_k$)**
@@ -131,8 +191,8 @@ This measures the dispersion **within each cluster**. It is defined as:
 $W_k = \sum_{j=1}^{k} \sum_{x_i \in C_j} (x_i - \mu_j)(x_i - \mu_j)^T$
 
 Where:
-- $x_i$ are the data points in cluster $C_j$.
-- $\mu_j$ is the centroid of cluster $j$.
+- $x_i$ are the data points in cluster $C_j$ .
+- $\mu_j$ is the centroid of cluster $j$ .
 
 
 **Higher Score**: Indicates that clusters are well-separated and compact.
