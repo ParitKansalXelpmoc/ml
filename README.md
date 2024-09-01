@@ -1,9 +1,70 @@
 
+# CART - Classification and Regression Trees
+
+**Pseudo code**
+1. Begin with your training dataset, which should have some feature variables and classification or regression output.
+2. Determine the “best feature” in the dataset to split the data on; more on how we define “best feature” later
+3. Split the data into subsets that contain the correct values for this best feature. This splitting basically defines a node on the tree i.e each node is a splitting point based on a certain feature from our data.
+4. Recursively generate new tree nodes by using the subset of data created from step 3.
+
+**Advantages** 
+- Intuitive and easy to understand
+- Minimal data preparation is required
+- The cost of using the tree for inference is logarithmic in the number of data points used to train the tree
+
+**Disadvantages** 
+- Overfitting
+- Prone to errors for imbalanced datasets
+
+### Entropy
+
+$\text{E}(x) = -\sum_{i=1}^{c} p_i\log_2(p_i)$
+
+where $p_i$ is simply the frequentist probability of an element class $i$ in our data.
 
 
+|AGE  |PURCHASE |
+|-----|---------|
+|31   |**yes**  |
+|25   |no       |
+|57   |**yes**  |
+|21   |no       |
+|28   |no       |
+
+$\text{E}(x) = \frac{2}{5}log_2(\frac{2}{5}) + \frac{3}{5}log_2(\frac{3}{5})$
+
+[![Untitled.png](https://i.postimg.cc/Dw93QRQP/Untitled.png)](https://postimg.cc/PCQ7T3RC)
+
+**Observation**
+- More the uncertainty more is entropy
+- For a 2 class problem the min entropy is O and the max is 1
+- For more than 2 classes the min entropy is O but the max can be greater than 1
+- Both $log_2$ or $log_e$ can be used to calculate entropy i
+
+### Gini impurity
+
+$G = 1 - \sum P_i^2$
+
+**Some times may give balanced tree incomparision to entropy**
+
+[![Untitled1-1.png](https://i.postimg.cc/YSwTLMRQ/Untitled1-1.png)](https://postimg.cc/18JvLxLz)
 
 
+### Information Gain 
 
+Information Gain, is a metric used to train Decision Trees. Specifically, this metric measures the quality of a split. 
+
+The information gain is based on the decrease in entropy after a data-set is split on an attribute.Constructing a decision tree is all about finding attribute that returns the highest information gain.
+
+$\text{Information Gain} = \text{E}(Parent) - \frac{1}{\text{Total Weight}}\sum Weight_i*\text{E}(child_i)$
+
+- Entropy of Parent
+- Calculate Entropy for Children
+- Calculate weighted Entropy of Children
+- Find Information Gain recursively
+- Calculate Information Gain for all the columns
+- Whichever column has the highest Information Gain(maximum decrease in entropy) the algorithm will select that column to split the data.
+- Once a leaf node is reached ( Entropy = 0 ), no more splitting is done.
 
 
 **What is Deep Learning ?**
