@@ -73,49 +73,6 @@ residual_n = actual - (pred_0 + eta
 
 
 
-**What is Deep Learning ?**
-- it is subset of ML which is then subset of AI
-- It aims to create human brain type structure
-- It identifies mon linear relation which is usually not identified by traditionl ML models
-- It contain input, hidden and output layers whixh are conneted to each others
-- eg ANN, CNN, RNN, LSTM, auto encoders, RAG
-- used for Computer Vision, NLP
-
-**How does Deep Learning differ from traditional Machine Learning?**
-- Mention all posible ML models
-- Mention all posible Deep learning models
-- Feature Extraction: Traditional machine learning relies on manual feature extraction, while deep learning automates this process, excelling with large datasets.
-- Performance with Big Data: Deep learning algorithms improve with larger datasets, outperforming traditional methods in complex tasks.
-
-**What is a Neural Network?**
-- Based on human neural network
-- Continuously update or we can say learn
-- consist of newrons connected to each other in Input, hidden and putput layers
-- Pass data layer by layer and activate neurons and generate output which is then used to calculate loss and this the used to calculate gradient and update the parameters.
-
-**Explain the concept of a neuron in Deep Learning.**
-- Input is multiplied by weight and then add bais
-- Apply a activation function which is responsible for for non linearity
-
-**What is an activation function in a Neural Network?**
-- Activation functions determine the output of | neurons and introduce non-linearity into neural networks.
-- They enable neural networks to learn complex patterns and perform advanced tasks.
-- Mention some activation functions
-
-**Give some activation function**
-- Sigmoid
-   - $f(x) = \frac{1}{1+e^{-x}}$
-   - Suffer from saturation when -ve it gives 0 and for +ve it gives 1
-- Tanh
-   - $f(x) = \frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$
-   - Suffer from saturation when -ve it gives -1 and for +ve it gives 1
-- ReLu
-   - $\text{ReLU}(x) = \max(0, x)$
-   - Do not suffer from saturation
-- Leaky relu
-   - $\text{Leaky ReLU}(x) = \max(0.01x, x)$
-   - Do not suffer from saturation
-
 # ML
 - **Naive Bayes Classifier**
 
