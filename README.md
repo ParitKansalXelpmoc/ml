@@ -1,7 +1,63 @@
 
 
+Input: training data set $\left(( x_i, y_i )\right)_{i=1}^n$, a differentiable loss function $L\left( y, F(x)\right)$, number of iterations M
+   - Suppose Loss function, $L\left( y, F(x)\right) = \frac{1}{2} \left(y-F(x)\right)^2$
+1. Initilize $f_0(x) = \text{arg min} \sum^{N}_{i=1} L\left( y, F(x)\right)$
+   - $f_0(x) = Mean(y)$
+2. For m = 1 to M :
+
+   a. For $i = 1, 2, ... N$ compute $r_{im} = - \left(\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right)_{f=f_m-1}$ 
+
+      - $r_{im} = \left(y_i - f(x_i)\right)_{f=f_m-1}$
+
+   b. Fit a regression tree on $\left(( x_i, r_{im} )\right)_{i=1}^n$
+   
+   c. lln
 
 
+$Prediction = M_1 + \eta_{1}M_2 + \eta_{2}M_3 + ... $
+
+$Pred_1 = Mean(Y)$
+$Res_1 = Y - Pred_1$
+
+$M2 = Model(X, Res_1)$
+$ Pred_2 = Pred_1 + M2(X)$
+$Res_2 = Y - Pred2$
+
+$M3 = Model(X, Res_2)$
+$ Pred_3 = Pred_2 + M3(X)$
+$Res_3 = Y - Pred3$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$residual_n = actual - ({pred_1} + \eta_{2}{pred_2} + \eta_{3}{pred_3} + ... + \eta_{n-1}{pred_{n-1}})$, where $n > 0$
+
+$pred_n = Model(X, residual_{n-1})$
+
+$pred_n = Avg(Y)$
+
+
+residual_n = actual - prediction_n
+residual_n = actual - (pred_0 + eta
+
+- Train model (input, y) which gives average of y
+- pred1
+- residual1 = y - pred1
+- Train model (input, residual1)
+- pred2
+- residual2 = residual1 - pred2
 
 
 
