@@ -22,7 +22,6 @@
 
 
 
-
 **What is Deep Learning ?**
 - it is subset of ML which is then subset of AI
 - It aims to create human brain type structure
@@ -72,6 +71,8 @@
 
 
 
+---
+---
 
 # Linear Regression
    
@@ -107,6 +108,8 @@ Suppose we have three features and we want apply degree 2 polynonial features th
 
 
 
+---
+---
 
 
 
@@ -166,6 +169,8 @@ $\text{Loss} = -\frac{1}{m} \sum_{i=1}^{m} \sum_{k=1}^{k} \left( y^{(i)}_k \cdot
 
 
 
+---
+---
 
 
 
@@ -185,6 +190,11 @@ It based on the concept "You are the average of the five people you spend the mo
    - KNN for Regression:
      - **Average (or Weighted Average)**: The predicted value for the query point is the average (or a weighted average) of the values of the K nearest neighbors.
 
+
+
+
+---
+---
 
 
 
@@ -211,6 +221,11 @@ This objective function seeks to minimize a combination of the margin (through t
 
 
 
+
+
+
+---
+---
 
 
 
@@ -295,6 +310,19 @@ $\text{Information Gain} = \text{G}(Parent) - \frac{1}{\text{Total Weight}}\sum 
 - The algorithm recursively repeats the process for each child node until a stopping criterion is met.
 - At each leaf node, the output is the mean of the target variable values within that node..
 
+## Feature importance for decision tree like algos
+Calculate this for each node t and which has split for feature $i$
+
+$Feature Importance(i) = \sum_{t \in \text{nodes where feature } i \text{ is used}} \frac{N_t}{N} \left( impurity - \frac{N_{t_r}}{N_t} \cdot RightImpurity - \frac{N_{t_l}}{N_t} \cdot LeftImpurity \right)$
+
+- $Feature Importance(i)$:  Importance score for feature $i$.
+- $N_t$: Number of samples at node $t$.
+- $N$: Total number of samples.
+- $\text{impurity}$: Impurity measure at node $t$ (e.g., Gini impurity, entropy).
+- $N_{t_r}$: Number of samples in the right child node after the split.
+- $N_{t_l}$: Number of samples in the left child node after the split.
+- $\text{Right Impurity}$: Impurity of the right child node of node t.
+- $\text{Left Impurity}$: Impurity of the left child node of node t.
 
 
 
@@ -306,6 +334,8 @@ $\text{Information Gain} = \text{G}(Parent) - \frac{1}{\text{Total Weight}}\sum 
 
 
 
+---
+---
 
 
 
@@ -399,6 +429,10 @@ $0.7 \times 0.7 \times 0.7 + 0.7 \times 0.7 \times 0.3 + 0.7 \times 0.3 \times 0
 
 
 
+
+
+---
+---
 
 
 
