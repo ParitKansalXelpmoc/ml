@@ -1,4 +1,5 @@
-
+---
+---
 
 Input: training data set $\left(( x_i, y_i )\right)_{i=1}^n$, a differentiable loss function $L\left( y, F(x)\right)$, number of iterations M
    - Suppose Loss function, $L\left( y, F(x)\right) = \frac{1}{2} \left(y-F(x)\right)^2$
@@ -203,6 +204,65 @@ It based on the concept "You are the average of the five people you spend the mo
 
 ---
 ---
+
+
+
+
+
+# Naive Bayes Classifier
+
+$P(A|B) = \frac{P(A ∩ B)}{P(B)}$
+
+$P(A|B) = \frac{P(B|A)\cdot P(A)}{P(B)}$
+
+$P\left(\frac{Won}{A∩B∩C}\right) = \frac{P\left(\frac{A∩B∩C}{Won}\right) \cdot P(Won)}{P(A∩B∩C)}$
+
+$P\left(\frac{A∩B∩C}{Won}\right) = P\left(\frac{A,B,C}{Won}\right) = P\left(\frac{A}{Won}\right) \cdot P\left(\frac{B}{Won}\right) \cdot P\left(\frac{C}{Won}\right)$
+
+$P\left(\frac{A∩B∩C}{Won}\right) = \frac{P\left(\frac{A}{Won}\right) \cdot P\left(\frac{B}{Won}\right) \cdot P\left(\frac{C}{Won}\right) \cdot P(Won)}{P(A∩B∩C)}$
+
+$P\left(\frac{Won}{A∩B∩C}\right) ∝ {P\left(\frac{A}{Won}\right) \cdot P\left(\frac{B}{Won}\right) \cdot P\left(\frac{C}{Won}\right) \cdot P(Won)}$
+
+$P\left(\frac{Loss}{A∩B∩C}\right) ∝ {P\left(\frac{A}{Loss}\right) \cdot P\left(\frac{B}{Loss}\right) \cdot P\left(\frac{C}{Loss}\right) \cdot P(Loss)}$
+
+
+### Example
+| Toss  | Venue    | Outlook   | Result |
+|-------|----------|-----------|--------|
+| Won   | Mumbai   | Overcast  | Won    |
+| Lost  | Chennai  | Sunny     | Won    |
+| Won   | Kolkata  | Sunny     | Won    |
+| Won   | Chennai  | Sunny     | Won    |
+| Lost  | Mumbai   | Sunny     | Lost   |
+| Won   | Mumbai   | Sunny     | Lost   |
+| Lost  | Chennai  | Overcast  | Lost   |
+| Won   | Kolkata  | Overcast  | Lost   |
+| Won   | Mumbai   | Sunny     | Won    |
+
+$P\left( \frac{Won}{Lost, Mumbai, Sunny} \right) ∝ {P\left(\frac{Lost}{Won}\right) \cdot P\left(\frac{Mumbai}{Won}\right) \cdot P\left(\frac{Sunny}{Won}\right) \cdot P(Won)} = 
+\frac{1}{5} \cdot \frac{2}{5} \cdot \frac{4}{5} \cdot \frac{5}{9}$
+
+### Handling Numerical values
+
+For numerical features, the Naive Bayes classifier uses the Gaussian (normal) distribution:
+
+$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$
+
+
+You would apply this formula to compute the probability density for numerical values in each class, such as "Won" or "Loss."
+
+This approach allows the Naive Bayes classifier to handle both categorical and numerical data.
+
+
+
+
+
+
+
+
+---
+---
+
 
 
 
