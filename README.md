@@ -1,18 +1,46 @@
+$\sum y_i -f_0(x)-y = 0$
+
+$γ_{jm} = argmin_γ \sum_{x_i ∈ R_{jm}} L(y_i, f_{m-1}(x_i) + γ)$
+
 
 
 Input: training data set $\left(( x_i, y_i )\right)_{i=1}^n$, a differentiable loss function $L\left( y, F(x)\right)$, number of iterations M
-   - Suppose Loss function, $L\left( y, F(x)\right) = \frac{1}{2} \left(y-F(x)\right)^2$
-1. Initilize $f_0(x) = \text{arg min} \sum^{N}_{i=1} L\left( y, F(x)\right)$
+   - Suppose Loss function, $L\left( y, F(x)\right) = \frac{1}{2} \left(y-γ\right)^2$
+1. Initilize $f_0(x) = arg min_{γ} \sum^{N}_{i=1} L\left( y_i  , γ \right)$
    - $f_0(x) = Mean(y)$
 2. For m = 1 to M :
 
-   a. For $i = 1, 2, ... N$ compute $r_{im} = - \left(\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right)_{f=f_m-1}$ 
+   (a). For $i = 1, 2, ... N$ compute $r_{im} = - \left(\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right)_{f=f_m-1}$ 
 
       - $r_{im} = \left(y_i - f(x_i)\right)_{f=f_m-1}$
 
-   b. Fit a regression tree on $\left(( x_i, r_{im} )\right)_{i=1}^n$
+   (b). Fit a regression tree to targets $r_{im}$ giving terminal regions $R_{jm}$, $j = 1, 2, 3 ... J_m$ on $\left(( x_i, r_{im} )\right)_{i=1}^n$
    
-   c. lln
+   (c). For $j = 1, 2, 3 ... J_m$ compute
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 $Prediction = M_1 + \eta_{1}M_2 + \eta_{2}M_3 + ... $
