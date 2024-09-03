@@ -1,5 +1,4 @@
----
----
+
 
 Input: training data set $\left(( x_i, y_i )\right)_{i=1}^n$, a differentiable loss function $L\left( y, F(x)\right)$, number of iterations M
    - Suppose Loss function, $L\left( y, F(x)\right) = \frac{1}{2} \left(y-F(x)\right)^2$
@@ -204,7 +203,6 @@ It based on the concept "You are the average of the five people you spend the mo
 
 ---
 ---
-
 
 
 
@@ -502,6 +500,67 @@ $0.7 \times 0.7 \times 0.7 + 0.7 \times 0.7 \times 0.3 + 0.7 \times 0.3 \times 0
 ---
 ---
 
+# Ada Boosting
+
+1. **Initial Weights**: For a dataset with $n$ samples, initialize the weight for each row/sample as $\frac{1}{n}$.
+   - $w_i = \frac{1}{n}, \quad \text{for all } i \text{ where } i \text{ is the row number}$
+
+   |x|y|$w_i$|
+   |-|-|-----|
+   | | |$\frac{1}{n}$|
+
+2. **Train a Weak Learner**: Train a decision tree of depth 1 (also known as a decision stump) using the current weights.
+3. **Predictions**: Use the trained decision stump to make predictions on the training data.
+
+   |x|y|$w_i$        |$\hat{y}$|
+   |-|-|-------------|---------|
+   | | |$\frac{1}{n}$|         |
+
+4. **Error Calculation**: Calculate the error $\epsilon$ of the stump, which is the sum of the weights of the misclassified samples:
+   - $\epsilon = \sum_{i=1}^n w_i \cdot I(\text{pred}_i \neq \text{actual}_i)$. Here, $I$ is the indicator function that returns 1 if the prediction is incorrect and 0 if correct.
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|
+   |-|-|-------------|---------|----------|
+   | | |$\frac{1}{n}$|         |          |
+
+
+5. **Performance of Stump $\alpha$**: Calculate the performance of the stump (also called the weight of the weak learner):
+   - $\alpha = \frac{1}{2} \log \left(\frac{1 - \epsilon}{\epsilon}\right)$
+  
+
+6. **Update Weights**: Update the weights of the samples based on their prediction outcome:
+   - If the prediction is correct: $w_i^{\text{new}} = w_i \cdot e^{-\alpha}$
+   - If the prediction is incorrect: $w_i^{\text{new}} = w_i \cdot e^{\alpha}$
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|
+   |-|-|-------------|---------|----------|------------------|
+   | | |$\frac{1}{n}$|         |          |                  |
+
+7. **Normalize Weights**: Normalize the updated weights so that they sum to 1: $w_i^{\text{new normal}} = \frac{w_i^{\text{new}}}{\sum_{j=1}^n w_j^{\text{new}}}$
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|
+   |-|-|-------------|---------|----------|------------------|-------------------------|
+   | | |$\frac{1}{n}$|         |          |                  |                         |
+
+8. **Make Bins**: Create bins corresponding to the normalized weights. The bins are cumulative sums of the weights, which will be used to sample the data points for the next iteration.
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|$bins$|
+   |-|-|-------------|---------|----------|------------------|-------------------------|------|
+   | | |$\frac{1}{n}$|         |          |                  |                         |      |
+
+9. **Generate Random Numbers**: Generate random numbers between 0 and 1. Each random number corresponds to a bin, and the row whose bin it falls into is selected for training the next weak learner.
+10. This process is repeated for a specified number of iterations or until a desired accuracy is achieved and for iteration 1 to set 9 are folloewd and make sure to use to use $w_i$ not $w_i^{\text{new}}$.
+11. The final model is a weighted sum of all the weak learners. $H(x) = \text{sign} \left( \sum_{t=1}^{T} \alpha_t \cdot h_t(x) \right)$   
+
+
+
+
+
+
+
+---
+---
+
 
 
 
@@ -593,58 +652,36 @@ Where:
 ---
 ---
 
-# Ada Boosting
-
-1. **Initial Weights**: For a dataset with $n$ samples, initialize the weight for each row/sample as $\frac{1}{n}$.
-   - $w_i = \frac{1}{n}, \quad \text{for all } i \text{ where } i \text{ is the row number}$
-
-   |x|y|$w_i$|
-   |-|-|-----|
-   | | |$\frac{1}{n}$|
-
-2. **Train a Weak Learner**: Train a decision tree of depth 1 (also known as a decision stump) using the current weights.
-3. **Predictions**: Use the trained decision stump to make predictions on the training data.
-
-   |x|y|$w_i$        |$\hat{y}$|
-   |-|-|-------------|---------|
-   | | |$\frac{1}{n}$|         |
-
-4. **Error Calculation**: Calculate the error $\epsilon$ of the stump, which is the sum of the weights of the misclassified samples:
-   - $\epsilon = \sum_{i=1}^n w_i \cdot I(\text{pred}_i \neq \text{actual}_i)$. Here, $I$ is the indicator function that returns 1 if the prediction is incorrect and 0 if correct.
-
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|
-   |-|-|-------------|---------|----------|
-   | | |$\frac{1}{n}$|         |          |
 
 
-5. **Performance of Stump $\alpha$**: Calculate the performance of the stump (also called the weight of the weak learner):
-   - $\alpha = \frac{1}{2} \log \left(\frac{1 - \epsilon}{\epsilon}\right)$
-  
+# DBSCAN 
+#### Key Parameters:
+- **Epsilon (ε)**: This parameter defines the radius of the neighborhood around a point. It is the maximum distance between two points for one to be considered as in the neighborhood of the other.
+- **MinPoints**: This is the minimum number of points required to form a dense region (including the point itself).
 
-6. **Update Weights**: Update the weights of the samples based on their prediction outcome:
-   - If the prediction is correct: $w_i^{\text{new}} = w_i \cdot e^{-\alpha}$
-   - If the prediction is incorrect: $w_i^{\text{new}} = w_i \cdot e^{\alpha}$
+#### Types of Points:
+1. **Core Points**: 
+   - A Core Point is a point that has at least `MinPoints` (including itself) within its ε-radius neighborhood.
+2. **Boundary Points**:
+   - A Boundary Point is a point that has fewer than `MinPoints` within its ε-radius neighborhood but is has atleast one core Point in the ε-radius.
+3. **Noise Points**:
+   - Noise Points, also known as outliers, are points that are neither Core Points nor Boundary Points.
 
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|
-   |-|-|-------------|---------|----------|------------------|
-   | | |$\frac{1}{n}$|         |          |                  |
+#### Density-connected
+Density-connected means that $p$ and $q$ can be connected through a chain of Core Points where each step in the chain is within the distance ϵ.
 
-7. **Normalize Weights**: Normalize the updated weights so that they sum to 1: $w_i^{\text{new normal}} = \frac{w_i^{\text{new}}}{\sum_{j=1}^n w_j^{\text{new}}}$
+### Algorithm
+1. Identify all points as either core point, border point or noise point 
+2. For all of the unclustered core points Step 
+   - Create a new cluster Step
+   - add all the points that are unclustered and density connected to the current point into this cluster 
+3. For each unclustered border point assign it to the cluster of nearest core point 
+4. Leave all the noise points as it is.
 
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|
-   |-|-|-------------|---------|----------|------------------|-------------------------|
-   | | |$\frac{1}{n}$|         |          |                  |                         |
 
-8. **Make Bins**: Create bins corresponding to the normalized weights. The bins are cumulative sums of the weights, which will be used to sample the data points for the next iteration.
 
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|$bins$|
-   |-|-|-------------|---------|----------|------------------|-------------------------|------|
-   | | |$\frac{1}{n}$|         |          |                  |                         |      |
-
-9. **Generate Random Numbers**: Generate random numbers between 0 and 1. Each random number corresponds to a bin, and the row whose bin it falls into is selected for training the next weak learner.
-10. This process is repeated for a specified number of iterations or until a desired accuracy is achieved and for iteration 1 to set 9 are folloewd and make sure to use to use $w_i$ not $w_i^{\text{new}}$.
-11. The final model is a weighted sum of all the weak learners. $H(x) = \text{sign} \left( \sum_{t=1}^{T} \alpha_t \cdot h_t(x) \right)$   
-
+---
+---
 
 |||
 |-|-|
