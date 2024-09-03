@@ -1,3 +1,70 @@
+# XGBOOST
+
+#### Why Gradient Boosting
+- Flexiblity
+   - Cross Platform - For windows, Linux
+   - Multiple Language Support - Multiple Programing Lang
+   - Integration with other libraries and tools
+   - Support all kinds of ML problems - Regression, classification, Time Series, Ranking
+- Speed - Almost 1/10th time of normal time taken by other ML algos
+   - Parallel Processing - Apply parallel processing in creation of decision tree, **n_jobs = -1**
+   - Optimized Data Structures - Store data in column instead of rows 
+   - Cache Awareness
+   - Out of Core computing - **tree_method = hist**
+   - Distributed Computing
+   - GPU Support - **tree_method = gpu_hist**
+- Performance
+   - Regularized Learning Objective
+   - Handling Missing values
+   - sparsity Aware Spit Finding
+   - Efficient Spit Finding(Weighted Quantile Sketch + Approximate Tree Learning) - Instead of spliting on each point in a column we can divide the data in bins 
+   - Tree Pruning
+
+---
+---
+
+# Gradient Boosting
+$Result = Model_0(X) + \eta \cdot Model_1(X) + \eta \cdot Model_2(X) + ... + \eta \cdot Model_n(X)$
+
+```python
+prediction = mean(y)
+models_list.append(Mean_Model)
+
+for i in rangle(n_estimators):
+   residual = y - prediction
+   tree = tree.fit(X, residual)
+   tree_list.append(tree)
+   prediction += η*tree.predict(X)
+```
+
+
+
+$Prediction = mean(y)$
+$ residuals = y - predictions$
+$tree = self._fit_tree(X, residuals)$
+$model_list.append(tree)$
+
+
+
+
+|$x$|$y$|$\hat{y} = f(x, \bar{y})$|$R_1 = y - \hat{y}$|
+|---|---|-------------------|-------------|
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $\sum y_i -f_0(x)-y = 0$
 
 $γ_{jm} = argmin_γ \sum_{x_i ∈ R_{jm}} L(y_i, f_{m-1}(x_i) + γ)$
