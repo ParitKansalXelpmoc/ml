@@ -777,7 +777,57 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
 
 ---
 ---
+# Agglomerative Hierarchical Clustering 
 
+## Algorithm
+
+#### 1. Initialize the Proximity Matrix
+   - Calculate distances between each pair of data points (e.g., using Euclidean distance) and store them in a matrix.
+
+#### 2. Make Each Point a Cluster
+   - Treat each data point as its own cluster.
+
+#### 3. Iterative Merging Process
+   - Repeat the following steps until only one cluster remains:
+     - **a. Merge the Two Closest Clusters**: Identify and merge the pair of clusters with the smallest distance.
+     - **b. Update the Proximity Matrix**: Recalculate distances between the newly formed cluster and the remaining clusters based on the chosen linkage criteria (e.g., minimum, maximum, average).
+
+#### 4. Stop When Only One Cluster Remains
+   - Continue until all data points are merged into a single cluster, resulting in a hierarchy of clusters.
+
+
+## Types of Linkage Criteria (Ways to Measure Distance Between Clusters)
+
+#### 1. Single Linkage (Minimum Linkage)
+   - Defines the distance between two clusters as the **minimum distance** between any point in one cluster and any point in the other.
+   - **Characteristics**: Tends to create elongated, chain-like clusters; sensitive to noise or outliers.
+
+#### 2. Complete Linkage (Maximum Linkage)
+   - Defines the distance between two clusters as the **maximum distance** between any point in one cluster and any point in the other.
+   - **Characteristics**: Tends to form compact, spherical clusters; less sensitive to outliers than single linkage.
+
+#### 3. Average Linkage
+   - Defines the distance between two clusters as the **average distance** between all pairs of points where one point is from one cluster and the other is from the other.
+   - **Characteristics**: Compromise between single and complete linkage.
+
+#### 4. Ward's Method
+   - Minimizes the increase in **total within-cluster variance** when merging two clusters, measured as the change in error sum of squares.
+   - **Characteristics**: Tends to create compact, spherical clusters; minimizes within-cluster variance at each merging step.
+
+## Finding the Ideal Number of Clusters
+
+1. **Plot the Dendrogram**
+2. **Cut the Dendrogram Horizontally**
+   - Visually inspect the dendrogram and make a horizontal cut at a certain height to define the number of clusters.
+
+3. **Find the Longest Vertical Line**
+   - Identify the longest vertical line that does not intersect with any other line, indicating the biggest distance between merged clusters and a natural division.
+
+4. **Determine the Number of Clusters**
+   - The ideal number of clusters corresponds to the number of clusters below the horizontal cut through the longest vertical line.
+  
+---
+---
 |||
 |-|-|
 |Select python env in anaconda
