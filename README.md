@@ -767,8 +767,8 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
 
 ### Algorithm
 1. Identify all points as either core point, border point or noise point 
-2. For all of the unclustered core points Step 
-   - Create a new cluster Step
+2. For all of the unclustered core points
+   - Create a new cluster
    - add all the points that are unclustered and density connected to the current point into this cluster 
 3. For each unclustered border point assign it to the cluster of nearest core point 
 4. Leave all the noise points as it is.
