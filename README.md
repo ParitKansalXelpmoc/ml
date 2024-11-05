@@ -828,6 +828,45 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
   
 ---
 ---
+
+
+# Cure Algorithm
+
+### **Pass 1: Initial Clustering, Outlier Removal, and Selection of Representative Points**
+
+1. **Random Sampling and Initial Clustering**
+   - Select a random sample of data points that fit in main memory.
+   - Cluster these sampled points to form initial clusters (e.g., using k-means or a similar clustering algorithm).
+
+2. **Outlier Detection and Removal**
+    - For each initial cluster, calculate the distance of each point from the cluster centroid.
+    - Identify outliers as points that are significantly farther from the centroid than the average distance.
+    - Remove these outliers from the dataset. Outliers can either be stored separately for analysis or discarded based on requirements.
+
+3. **Selection of Scattered Representative Points**
+    - For each cluster (now without outliers), select `c` scattered points within the cluster (e.g., `c = 4`).
+    - These points act as representatives of each cluster.
+
+4. **Shrinking Representative Points Towards the Centroid**
+    - Move each representative point closer to the cluster’s centroid by a factor of `α`, where `0 < α < 1`.
+    - This "shrinking" adjusts the representative points, enhancing their alignment with the cluster's core.
+
+5. **Cluster Merging Using the Minimum-Distance (dmin) Approach**
+    - Apply a minimum-distance (`dmin`) criterion to merge clusters that have representative points within a close distance.
+    - This step decreases the number of clusters, making the dataset more manageable for Pass 2.
+
+
+### **Pass 2: Refining Clusters with Iterative Merging**
+
+1. **Updating Representatives After Each Merge**
+    - After each cluster merge, designate the newly combined points as representatives of the new cluster.
+    - Continue merging clusters based on the updated representative points.
+
+2. **Stopping Condition**
+    - The merging process continues until the specified number of clusters, `k`, is achieved.
+-------
+--------
+
 |||
 |-|-|
 |Select python env in anaconda
