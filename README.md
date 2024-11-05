@@ -342,7 +342,7 @@ For numerical features, the Naive Bayes classifier uses the Gaussian (normal) di
 $f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$
 
 
-You would apply this formula to compute the probability density for numerical values in each class, such as "Won" or "Loss."
+You would apply this formula to compute the probability density for numerical values in each class, such as "Won" or "Loss" by finding the std and mean for that class and putting that in the formula for probablity and also putting value of x in this.
 
 This approach allows the Naive Bayes classifier to handle both categorical and numerical data.
 
