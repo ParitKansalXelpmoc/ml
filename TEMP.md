@@ -1,7 +1,4 @@
 
----
-
-
 # Topics
 - [Linear Regression](#linear-regression)
 - [Polynomial Regression](#polynomial-regression)
@@ -24,7 +21,7 @@
 - [Stacking](#stacking)
 - [Bagging](#bagging-techniques)
 - [Boosting]
-
+- [Ada Boosting](#ada-boosting)
 ---
 ---
 
@@ -458,6 +455,65 @@ $0.7 \times 0.7 \times 0.7 + 0.7 \times 0.7 \times 0.3 + 0.7 \times 0.3 \times 0
 
   **Out-of-Bag (OOB) Error:** Approximately 37% of samples are not used for model training, so this data can be used for testing the model.
   
+---
+---
+# Ada Boosting
+
+1. **Initial Weights**: For a dataset with $n$ samples, initialize the weight for each row/sample as $\frac{1}{n}$.
+   - $w_i = \frac{1}{n}, \quad \text{for all } i \text{ where } i \text{ is the row number}$
+
+   |x|y|$w_i$|
+   |-|-|-----|
+   | | |$\frac{1}{n}$|
+
+2. **Train a Weak Learner**: Train a decision tree of depth 1 (also known as a decision stump) using the current weights.
+3. **Predictions**: Use the trained decision stump to make predictions on the training data.
+
+   |x|y|$w_i$        |$\hat{y}$|
+   |-|-|-------------|---------|
+   | | |$\frac{1}{n}$|         |
+
+4. **Error Calculation**: Calculate the error $\epsilon$ of the stump, which is the sum of the weights of the misclassified samples:
+   - $\epsilon =  w_i \cdot I$. Here, $I : (\hat{y}_i != y_i)$ is the indicator function that returns 1 if the prediction is incorrect and 0 if correct.
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|
+   |-|-|-------------|---------|----------|
+   | | |$\frac{1}{n}$|         |          |
+
+
+5. **Performance of Stump $\alpha$**: Calculate the performance of the stump (also called the weight of the weak learner):
+   - $\alpha = \frac{1}{2} \log \left(\frac{1 - \sum \epsilon}{\sum \epsilon}\right)$
+  
+
+6. **Update Weights**: Update the weights of the samples based on their prediction outcome:
+   - If the prediction is correct: $w_i^{\text{new}} = w_i \cdot e^{-\alpha}$
+   - If the prediction is incorrect: $w_i^{\text{new}} = w_i \cdot e^{\alpha}$
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|
+   |-|-|-------------|---------|----------|------------------|
+   | | |$\frac{1}{n}$|         |          |                  |
+
+7. **Normalize Weights**: Normalize the updated weights so that they sum to 1: $w_i^{\text{new normal}} = \frac{w_i^{\text{new}}}{\sum_{j=1}^n w_j^{\text{new}}}$
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|
+   |-|-|-------------|---------|----------|------------------|-------------------------|
+   | | |$\frac{1}{n}$|         |          |                  |                         |
+
+8. **Make Bins**: Create bins corresponding to the normalized weights. The bins are cumulative sums of the weights, which will be used to sample the data points for the next iteration.
+
+$bin_i=(a_i,b_i) = (b_{i-1},b_{i-1}+w_i^{\text{new normal}})$
+
+
+   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|$bin_i=(a_i,b_i)$|
+   |-|-|-------------|---------|----------|------------------|-------------------------|------|
+   | | |$\frac{1}{n}$|         |          |                  |                         |      |
+
+9. **Generate Random Numbers**: Generate random numbers between 0 and 1. Each random number corresponds to a bin, and the row whose bin it falls into is selected for training the next weak learner.
+
+10. This process is repeated for a specified number of iterations or until a desired accuracy is achieved and for iteration make sure to use to use $w_i = \frac{1}{n}$.
+
+11. The final model is a weighted sum of all the weak learners. $H(x) = \text{sign} \left( \sum_{n=1}^{N} \alpha_n \cdot h_n(x) \right)$   
+
 ---
 ---
 
