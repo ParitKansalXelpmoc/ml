@@ -175,61 +175,7 @@ residual_n = actual - (pred_0 + eta
 
 
 
-# SVM (Support Vector Machine)
-![](https://i.postimg.cc/N0YydtDp/Untitled.png)
 
-- The aim of this is to maximise the distance between $π_+$ and $π_-$ and minimise the distance distance of wrong output pints to there repective correct margin plane.
-
-$\arg\min_{w*, b*} \left( Margin Error + Classification Error\right)$
-
-$\arg\min_{w*, b*} \left( \frac{1}{2} ||w||^2 + C \sum_{i=1}^n \zeta_i \right)$
-
-### where:
-- **$w$** : Weight vector.
-- **$b$** : Bias term.
-- **$C $** : Regularization parameter.
-- **$\frac{1}{2} ||w||^2 $** : Regularization term that penalizes large weights.
-- **$\sum_{i=1}^n \zeta_i $** : Sum of the slack variables $𝜁_𝑖$​, which represent the amount by which each data point deviates from the correct classification margin.
-
-This objective function seeks to minimize a combination of the margin (through the regularization term) and the misclassification error (through the slack variables). The goal is to find the optimal $w*$ and $b*$ that achieve this balance.
-
-**We use Kernels for non linear seperable data**
-
-
-
-
-
-
----
----
-
-
-
-
-
-
-# Ensemble Learning
-Based on the concept of the wisdom of the crowd, decisions made by multiple models have a higher chance of being correct. Ensemble learning helps convert a low-bias, high-variance model into a low-bias, low-variance model because the random/outliers are distributed among various models instead of going to a single model.
-
-#### Voting Ensemble
-In this approach, different models of various types, such as SVM, Decision Tree, and Logistic Regression, calculate results. For classification tasks, the output with the highest frequency is selected as the final result, or we add probabilities of each class obtained from models. For regression tasks, the mean of the outputs is calculated.
-
-#### Stacking
-In stacking, different models of various types, such as SVM, Decision Tree, and Logistic Regression, are used to calculate results. The outputs of these models are then used to train a final model, such as KNN, to obtain the final output. This final model effectively assigns a weight to each previous model's prediction.
-
-#### Bagging
-In bagging, multiple models of the same type (i.e., using the same algorithm) are trained. Each model is trained on a different sample of the data, not the entire dataset. The final result is determined by averaging (for regression) or using majority voting (for classification).
-
-#### Boosting
-In boosting, different models are connected in series. The error made by one model is passed on to the next model in the series, which attempts to correct it. This process continues, with each subsequent model focusing on the errors of the previous one.
-
-## Bagging Techniques
-- **Row Sampling with Replacement:** Standard bagging technique where data is sampled with replacement.
-- **Pasting:** Row sampling without replacement.
-- **Random Subspaces:** Column sampling, which can be done with or without replacement.
-- **Random Patches:** Both row and column sampling are performed, with or without replacement.
-
-  **Out-of-Bag (OOB) Error:** Approximately 37% of samples are not used for model training, so this data can be used for testing the model.
 
 ## Decision tree vs. Bagging
 | **Bagging** | **Decision Tree** |
@@ -237,51 +183,7 @@ In boosting, different models are connected in series. The error made by one mod
 | Features are selected before training the decision tree, i.e., feature sampling is done at the tree level. | Some features are selected randomly at each node, and Information Gain (or Gini Index) is calculated for these feature to decide the best split. |
 | It introduces less randomness into the model as the same set of features is used across the entire tree. | It introduces more randomness as the features are selected at each node, which can lead to different splits and trees. |
 
-## Voting
-We are given 3 models, each having an accuracy of 0.7.
 
-                                        1
-                                      /   \
-                                    /       \
-                                  /           \
-                                /               \
-                              /                   \
-                            0.7                   0.3
-                            / \                   / \
-                          /     \               /     \
-                        /        \             /       \
-                       0.7       0.3        0.7         0.3
-                      / \        / \        / \         / \
-                   0.7   0.7   0.7  0.3   0.7  0.3    0.7  0.3
-                    ✔    ✔     ✔         ✔            
-
-
-Final Accuracy:
-
-$0.7 \times 0.7 \times 0.7 + 0.7 \times 0.7 \times 0.3 + 0.7 \times 0.3 \times 0.7 + 0.3 \times 0.7 \times 0.7 = 0.784$
-
-### Types:
-- **Hard Voting:** The output with the highest frequency is selected as the final result, i.e., argmax().
-- **Soft Voting:** We add probabilities of each class obtained from models and then select the class with the highest value.
-
-## Stacking
-![](https://i.ibb.co/kh92jNk/Untitled.png)
-
-#### 1. Hold Out Method (Blending)
-- Split the training data into two parts.
-- Train base models on the first part.
-- Use the second part to generate predictions using stacked models, which are used as input for the meta-model.
-- The meta-model is trained on these predictions.
-
-#### 2. K-Fold Approach (Stacking)
-- Split the training data into K folds.
-- Train K models of the same type, each leaving out one fold for predictions.
-- Predictions from the out-of-fold data are used to train the meta-model.
-- The meta-model is trained on the stacked predictions.
-- Finally, the base models are retrained on the entire dataset.
-
-#### Multi-Layered Stacking
-![](https://i.ibb.co/6rfBBmS/Untitled.png)
 
 
 
