@@ -1,3 +1,28 @@
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # XGBOOST
 
 #### Why Gradient Boosting
@@ -177,86 +202,18 @@ residual_n = actual - (pred_0 + eta
 
 
 
-## Decision tree vs. Bagging
-| **Bagging** | **Decision Tree** |
+## Bagging Vs Random Forest
+
+
+| **Bagging** | **Random Forest** |
 |-------------|-------------------|
-| Features are selected before training the decision tree, i.e., feature sampling is done at the tree level. | Some features are selected randomly at each node, and Information Gain (or Gini Index) is calculated for these feature to decide the best split. |
-| It introduces less randomness into the model as the same set of features is used across the entire tree. | It introduces more randomness as the features are selected at each node, which can lead to different splits and trees. |
+| In Bagging, feature sampling (or selection) is done before training each decision tree. A subset of features is chosen, and the entire tree uses only this subset of features to make splits. | In Random Forest, feature sampling occurs at each split in the tree. A random subset of features is chosen at each node, and the feature with the best Information Gain or Gini Index is used to make the split. |
+| This approach introduces less randomness to individual trees, as the same set of features is used throughout each tree. This can lead to lower variance if the features chosen are highly relevant. | By selecting a different subset of features at each split, Random Forest increases the diversity of the trees, helping to reduce overfitting and increasing model robustness by creating a more diverse "forest" of trees. |
 
 
 
 
 
-
-
-
-
-
-
-
----
----
-
-# Ada Boosting
-
-1. **Initial Weights**: For a dataset with $n$ samples, initialize the weight for each row/sample as $\frac{1}{n}$.
-   - $w_i = \frac{1}{n}, \quad \text{for all } i \text{ where } i \text{ is the row number}$
-
-   |x|y|$w_i$|
-   |-|-|-----|
-   | | |$\frac{1}{n}$|
-
-2. **Train a Weak Learner**: Train a decision tree of depth 1 (also known as a decision stump) using the current weights.
-3. **Predictions**: Use the trained decision stump to make predictions on the training data.
-
-   |x|y|$w_i$        |$\hat{y}$|
-   |-|-|-------------|---------|
-   | | |$\frac{1}{n}$|         |
-
-4. **Error Calculation**: Calculate the error $\epsilon$ of the stump, which is the sum of the weights of the misclassified samples:
-   - $\epsilon = \sum_{i=1}^n w_i \cdot I(\text{pred}_i \neq \text{actual}_i)$. Here, $I$ is the indicator function that returns 1 if the prediction is incorrect and 0 if correct.
-
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|
-   |-|-|-------------|---------|----------|
-   | | |$\frac{1}{n}$|         |          |
-
-
-5. **Performance of Stump $\alpha$**: Calculate the performance of the stump (also called the weight of the weak learner):
-   - $\alpha = \frac{1}{2} \log \left(\frac{1 - \epsilon}{\epsilon}\right)$
-  
-
-6. **Update Weights**: Update the weights of the samples based on their prediction outcome:
-   - If the prediction is correct: $w_i^{\text{new}} = w_i \cdot e^{-\alpha}$
-   - If the prediction is incorrect: $w_i^{\text{new}} = w_i \cdot e^{\alpha}$
-
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|
-   |-|-|-------------|---------|----------|------------------|
-   | | |$\frac{1}{n}$|         |          |                  |
-
-7. **Normalize Weights**: Normalize the updated weights so that they sum to 1: $w_i^{\text{new normal}} = \frac{w_i^{\text{new}}}{\sum_{j=1}^n w_j^{\text{new}}}$
-
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|
-   |-|-|-------------|---------|----------|------------------|-------------------------|
-   | | |$\frac{1}{n}$|         |          |                  |                         |
-
-8. **Make Bins**: Create bins corresponding to the normalized weights. The bins are cumulative sums of the weights, which will be used to sample the data points for the next iteration.
-
-   |x|y|$w_i$        |$\hat{y}$|$\epsilon$|$w_i^{\text{new}}$|$w_i^{\text{new normal}}$|$bins$|
-   |-|-|-------------|---------|----------|------------------|-------------------------|------|
-   | | |$\frac{1}{n}$|         |          |                  |                         |      |
-
-9. **Generate Random Numbers**: Generate random numbers between 0 and 1. Each random number corresponds to a bin, and the row whose bin it falls into is selected for training the next weak learner.
-10. This process is repeated for a specified number of iterations or until a desired accuracy is achieved and for iteration 1 to set 9 are folloewd and make sure to use to use $w_i$ not $w_i^{\text{new}}$.
-11. The final model is a weighted sum of all the weak learners. $H(x) = \text{sign} \left( \sum_{t=1}^{T} \alpha_t \cdot h_t(x) \right)$   
-
-
-
-
-
-
-
----
----
 
 
 
