@@ -1,18 +1,18 @@
 # Topics
 - [Linear Regression](#linear-regression)
-- [Polynomial Regression](https://github.com/ParitKansal/ml/blob/main/TEMP.md#polynomial-regression)
-- [Logistic regression](https://github.com/ParitKansal/ml/blob/main/TEMP.md#logistic-regression)
-   - [Percepton Trick](https://github.com/ParitKansal/ml/blob/main/TEMP.md#1-percepton-trick)
-   - [Sigmoid function](https://github.com/ParitKansal/ml/blob/main/TEMP.md#2-sigmoid-function)
-   - [Maximum Likelihood](https://github.com/ParitKansal/ml/blob/main/TEMP.md#3-maximum-likelihood)
-- [Softmax Regression / Multinomial Logistic Regression](https://github.com/ParitKansal/ml/blob/main/TEMP.md#softmax-regression--multinomial-logistic-regression)
-- [KNN](https://github.com/ParitKansal/ml/blob/main/TEMP.md#knn)
-- [Naive Bayes Classifier](https://github.com/ParitKansal/ml/blob/main/TEMP.md#naive-bayes-classifier)
-   - [Handling Numerical Values](https://github.com/ParitKansal/ml/blob/main/TEMP.md#handling-numerical-values)
-- [CART](https://github.com/ParitKansal/ml/blob/main/TEMP.md#cart---classification-and-regression-trees)
-   - [Decision Tree](https://github.com/ParitKansal/ml/blob/main/TEMP.md#decision-tree)
-   - [Regression Trees](https://github.com/ParitKansal/ml/blob/main/TEMP.md#regression-trees)
-- [Feature Importance](https://github.com/ParitKansal/ml/blob/main/TEMP.md#feature-importance-for-decision-tree-like-algos)
+- [Polynomial Regression](#polynomial-regression)
+- [Logistic regression](#logistic-regression)
+   - [Percepton Trick](#1-percepton-trick)
+   - [Sigmoid function](#2-sigmoid-function)
+   - [Maximum Likelihood](#3-maximum-likelihood)
+- [Softmax Regression / Multinomial Logistic Regression](#softmax-regression--multinomial-logistic-regression)
+- [KNN](#knn)
+- [Naive Bayes Classifier](#naive-bayes-classifier)
+   - [Handling Numerical Values](#handling-numerical-values)
+- [CART](#cart---classification-and-regression-trees)
+   - [Decision Tree](#decision-tree)
+   - [Regression Trees](#regression-trees)
+- [Feature Importance](#feature-importance-for-decision-tree-like-algos)
 
 ---
 ---
@@ -110,8 +110,7 @@ It based on the concept "You are the average of the five people you spend the mo
 ### Steps Involved:
 1. Normalize the Data
 2. Find the Distance of All Points:    
-     - Use Euclidean distance:  
-       $d(x, y) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$
+     - Use Euclidean distance
 3. Identify the K Nearest Neighbors
 4. Determine the Output:
    - KNN for Classification:
