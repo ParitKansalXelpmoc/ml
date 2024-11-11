@@ -1,27 +1,28 @@
 
 # Topics
-- [Linear Regression](#linear-regression)
-- [Polynomial Regression](#polynomial-regression)
-- [Ridge, Lasso, Elastic Regression](#ridge-lasso-elastic-regression)
-- [Logistic regression](#logistic-regression)
-   - [Percepton Trick](#1-percepton-trick)
-   - [Sigmoid function](#2-sigmoid-function)
-   - [Maximum Likelihood](#3-maximum-likelihood)
-- [Softmax Regression / Multinomial Logistic Regression](#softmax-regression--multinomial-logistic-regression)
-- [KNN](#knn)
-- [Naive Bayes Classifier](#naive-bayes-classifier)
+- [**Linear Regression**](#linear-regression)
+	- [Polynomial Regression](#polynomial-regression)
+- [**Ridge, Lasso, Elastic Regression**](#ridge-lasso-elastic-regression)
+- [**Logistic regression**](#logistic-regression)
+	- Solutions
+		- [Percepton Trick](#1-percepton-trick)
+		- [Sigmoid function](#2-sigmoid-function)
+		- [Maximum Likelihood](#3-maximum-likelihood)
+	- [**Softmax Regression / Multinomial Logistic Regression**](#softmax-regression--multinomial-logistic-regression)
+- [**KNN**](#knn)
+- [**Naive Bayes Classifier**](#naive-bayes-classifier)
    - [Handling Numerical Values](#handling-numerical-values)
-- [CART](#cart---classification-and-regression-trees)
-   - [Decision Tree](#decision-tree)
-   - [Regression Trees](#regression-trees)
-- [Feature Importance](#feature-importance-for-decision-tree-like-algos)
-- [SVM](#svm-support-vector-machine)
+- [**CART**](#cart---classification-and-regression-trees)
+   - [**Decision Tree**](#decision-tree)
+   - [**Regression Trees**](#regression-trees)
+   - [Feature Importance Using Decision Tree](#feature-importance-for-decision-tree-like-algos)
+- [**SVM**](#svm-support-vector-machine)
 - [Ensemble Learning](#ensemble-learning)
-- [Voting Ensemble](#voting)
-- [Stacking](#stacking)
-- [Bagging](#bagging-techniques)
-- [Boosting]
-- [Ada Boosting](#ada-boosting)
+	- [**Voting Ensemble**](#voting)
+	- [**Stacking**](#stacking)
+	- [**Bagging**](#bagging-techniques)
+	- Boosting
+		- [**Ada Boosting**](#ada-boosting)
 ---
 ---
 
