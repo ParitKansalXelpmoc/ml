@@ -1,3 +1,10 @@
+# Content
+- [K-Means](#k-means)
+- [DBSCAN](#dbscan)
+- [Agglomerative Hierarchical Clustering](#agglomerative-hierarchical-clustering)
+
+---
+---
 
 # K-Means
 ### Choosing the Right Number of Clusters
@@ -101,7 +108,7 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
 
 # Agglomerative Hierarchical Clustering 
 
-## Algorithm
+### Algorithm
 
 #### 1. Initialize the Proximity Matrix
    - Calculate distances between each pair of data points (e.g., using Euclidean distance) and store them in a matrix.
@@ -118,7 +125,7 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
    - Continue until all data points are merged into a single cluster, resulting in a hierarchy of clusters.
 
 
-## Types of Linkage Criteria (Ways to Measure Distance Between Clusters)
+### Types of Linkage Criteria (Ways to Measure Distance Between Clusters)
 
 #### 1. Single Linkage (Minimum Linkage)
    - Defines the distance between two clusters as the **minimum distance** between any point in one cluster and any point in the other.
@@ -136,7 +143,7 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
    - Minimizes the increase in **total within-cluster variance** when merging two clusters, measured as the change in error sum of squares.
    - **Characteristics**: Tends to create compact, spherical clusters; minimizes within-cluster variance at each merging step.
 
-## Finding the Ideal Number of Clusters
+### Finding the Ideal Number of Clusters
 
 1. **Plot the Dendrogram**
 2. **Cut the Dendrogram Horizontally**
