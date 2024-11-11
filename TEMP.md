@@ -13,6 +13,7 @@
    - [Decision Tree](#decision-tree)
    - [Regression Trees](#regression-trees)
 - [Feature Importance](#feature-importance-for-decision-tree-like-algos)
+- [SVM](#svm-support-vector-machine)
 
 ---
 ---
@@ -255,3 +256,36 @@ $Feature Importance(i) = \sum_{t \in \text{nodes where feature } i \text{ is us
 - $N_{t_l}$: Number of samples in the left child node after the split.
 - $\text{Right Impurity}$: Impurity of the right child node of node t.
 - $\text{Left Impurity}$: Impurity of the left child node of node t.
+
+---
+---
+# SVM (Support Vector Machine)
+![](https://i.postimg.cc/N0YydtDp/Untitled.png)
+
+- The aim of this is to 
+    - maximise the distance between $π_+$ and $π_-$
+    - minimise the distance distance of wrong output points to there repective **correct margin plane**
+
+Below objective function seeks to minimize a combination of the margin (through the regularization term) and the misclassification error (through the slack variables). The goal is to find the optimal $w*$ and $b*$ that achieve this balance.
+
+- $\arg\min_{w*, b*} \left( Margin Error + Classification Error\right)$
+- $\arg\min_{w*, b*} \left( \frac{1}{2} ||w||^2 + C \sum_{i=1}^n \zeta_i \right)$
+
+**where**:
+
+**$w$** : Weight vector.
+
+**$b$** : Bias term.
+
+**$C $** : Regularization parameter.
+
+**$\frac{1}{2} ||w||^2 $** : Regularization term that penalizes large weights.
+
+**$\sum_{i=1}^n \zeta_i $** : Sum of the slack variables $𝜁_𝑖$​, which represent the amount by which each data point deviates from the correct classification margin.
+
+
+**We use Kernels for non linear seperable data**
+
+---
+---
+
