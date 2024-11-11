@@ -1,6 +1,11 @@
+
+---
+
+
 # Topics
 - [Linear Regression](#linear-regression)
 - [Polynomial Regression](#polynomial-regression)
+- [Ridge, Lasso, Elastic Regression](#ridge-lasso-elastic-regression)
 - [Logistic regression](#logistic-regression)
    - [Percepton Trick](#1-percepton-trick)
    - [Sigmoid function](#2-sigmoid-function)
@@ -48,6 +53,91 @@ Suppose we have three features and we want apply degree 2 polynonial features th
 
 ---
 ---
+# Ridge, Lasso, Elastic Regression
+
+### **Ridge Regression**
+
+$L = \sum_{i=0}^{m} (y - \hat{y})^2 + \lambda \sum \beta^2 $
+
+$\frac{\partial L}{\partial \beta} = 2 X^T X \beta - 2 X^T Y + 2 \lambda I \beta$
+
+- Here $I = I$ where $I[0][0] = 0$
+  - Example
+		<table>
+		    <tr>
+		        <td>0</td>
+		        <td>0</td>
+		        <td>0</td>
+		    </tr>
+		    <tr>
+		        <td>0</td>
+		        <td>1</td>
+		        <td>0</td>
+		    </tr>
+		    <tr>
+		        <td>0</td>
+		        <td>0</td>
+		        <td>1</td>
+		    </tr>
+		</table>
+
+$\beta = (X^T X + \lambda I)^{-1} X^T Y$
+
+$\beta = \beta_0 - \alpha \frac{\partial L}{\partial \beta_0}$
+
+$m = \frac{\sum (y_i - \bar{y})(x_i - \bar{x})}{\sum (x_i - \bar{x})^2 + \lambda} \rightarrow \neq 0$
+
+- **As** $\lambda$ **increases, value only decreases but never goes to 0**
+
+
+### **Lasso Regression**
+
+$\text{Loss, } L = \sum (y - \hat{y})^2 + \lambda ||w|| = \sum (y - \hat{y})^2 + \lambda (|w_1| + |w_2| + |w_3| + \dots + |w_n|)$
+
+- For $m > 0$
+
+  $m = \frac{\sum (y_i - \bar{y})(x_i - \bar{x}) - \lambda}{\sum (x_i - \bar{x})^2}$
+
+- For $m = 0$
+
+  $m = \frac{\sum (y_i - \bar{y})(x_i - \bar{x})}{\sum (x_i - \bar{x})^2} $
+
+- For $m < 0$
+
+  $m = \frac{\sum (y_i - \bar{y})(x_i - \bar{x}) + \lambda}{\sum (x_i - \bar{x})^2}$
+
+- **Lasso regression is used for feature selection, for greater values of** $\lambda$.
+
+### **Properties of Ridge and Lasso Regression**
+
+1) **How coefficients get affected as** $\lambda$ **increases**
+   - For **Ridge** → $m \approx 0$ but $m \neq 0$
+   - For **Lasso** → $m = 0$
+
+2) **More the value of** $m$ **the higher & more it decreases fully as** $\lambda$ **increases.**
+
+   ![](https://github.com/ParitKansal/ml/blob/main/photos/Untitled%20(3).png)
+
+3) **Bias-Variance tradeoff**
+
+![](https://github.com/ParitKansal/ml/blob/main/photos/bias%20and%20variance%20curves.webp)
+
+4) **Impact on loss function**
+   - As $\lambda$ increases, minimum loss increases.
+   - As $\lambda$ increases, $m$ gets close to 0.
+![](https://github.com/ParitKansal/ml/blob/main/photos/1_EyLt1w1eXHVELljki2hYuQ%20(1).png)
+
+### **Elastic Regression**
+
+Loss,  L = &sum;<sub>i=1</sub> (&#770;y<sub>i</sub> - y<sub>i</sub>)<sup>2</sup> + &alpha; &sum;<sub>i=1</sub> |w<sub>i</sub>| + &beta; &sum;<sub>i=1</sub> w<sub>i</sub><sup>2</sup>
+
+- **Use when we do not know if we have to apply Ridge or Lasso regression.**
+- **Ridge** → when every independent variable has some importance.
+- **Lasso** → when we want to train the model on a subset of variables instead of all variables.
+
+---
+---
+
 # Logistic regression
 
 ### 1. Percepton Trick
