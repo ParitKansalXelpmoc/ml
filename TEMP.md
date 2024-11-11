@@ -1,6 +1,7 @@
 
 ## Topics
-- [Linear Regression(https://github.com/ParitKansal/ml/edit/main/TEMP.md#linear-regression)
+- [Linear Regression](https://github.com/ParitKansal/ml/edit/main/TEMP.md#linear-regression)
+- 
 
 ---
 
