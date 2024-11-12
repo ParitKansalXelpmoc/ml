@@ -1,10 +1,4 @@
----
----
----
 
-
-
-$\sqrt{\text{Squared distace}*\frac{\text{Total No of columns}}{\text{no of cols filled in row}}}$
 ---
 ---
 
