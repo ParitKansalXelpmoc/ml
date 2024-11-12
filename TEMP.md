@@ -23,6 +23,7 @@
 	- [**Bagging**](#bagging-techniques)
 	- Boosting
 		- [**Ada Boosting**](#ada-boosting)
+ 		- [**Gradient Boosting**](#gradient-boosting)
 ---
 ---
 
@@ -518,5 +519,74 @@ $bin_i=(a_i,b_i) = (b_{i-1},b_{i-1}+w_i^{\text{new normal}})$
 ---
 ---
 
+# Gradient Boosting
 
+
+$Result = Model_0(X) + \eta \cdot Model_1(X) + \eta \cdot Model_2(X) + \dots + \eta \cdot Model_n(X)$
+
+- ALGORITHM:
+   ```python
+   prediction = mean(y)  # Initial prediction, starting with the mean of the target values
+   models_list.append(Mean_Model)  # Store the initial model
+   
+   for i in range(1, n_estimators):  # Loop to build subsequent models
+       residual = y - prediction  # Compute residuals
+       tree = tree.fit(X, residual)  # Train a new model on residuals
+       models_list.append(tree)  # Add the trained model to the list
+       prediction += η * tree.predict(X)  # Update the prediction with scaled predictions from the new model
+   
+   result = models_list[0](X) + models_list[1](X) + models_list[2](X)M_0(X) + ...
+   ```
+
+---
+
+### ALGORITHM(applicale for every Loss Fun)
+
+Given:
+- A dataset $\left( (x_i, y_i) \right)_{i=1}^n$.
+- A differentiable loss function $L(y, F(x))$ where $L(y, F(x)) = \frac{1}{2} (y - F(x))^2$, which is the squared error loss.
+- A maximum number of boosting iterations $M$.
+
+The goal is to build an additive model $f_M(x)$ in a way that minimizes the loss function $L(y, f(x))$ over the training set.
+
+### Steps
+
+1. **Initialize the Base Model**:
+   - Start by initializing the model $f_0(x)$ as the constant that minimizes the loss. For squared error loss, this is the mean of $y$:
+
+     $$f_0(x) = \arg \min_{\gamma} \sum_{i=1}^N L(y_i, \gamma) = \text{Mean}(y)$$
+
+2. **Boosting Loop**:
+   - For $m = 1$ to $M$:
+   
+     a. **Compute Residuals**:
+        - For each data point $i$, compute the residual $r_{im}$, which represents the negative gradient of the loss function with respect to $f(x_i)$ evaluated at $f_{m-1}(x)$:
+
+          $r_{im} = -\left( \frac{\partial L(y_i, f(x_i))}{\partial f(x_i)} \right)_{f=f(m-1)} $
+
+          $r_{im} = y_i - f_{m-1}(x_i)$
+
+
+        - This residual measures the error between the actual $y_i$ and the model prediction $f_{m-1}(x_i)$.
+
+     b. **Fit a Regression Tree**:
+        - Fit a regression tree to the targets $r_{im}$, producing terminal regions $R_{jm}$ for $j = 1, 2, \ldots, J_m$, where $J_m$ is the number of terminal nodes (leaves) in the tree.
+
+     c. **Compute Terminal Node Predictions**:
+        - For each region $R_{jm}$, compute the optimal value $\gamma_{jm}$ that minimizes the loss over the points in $R_{jm}$. Since the loss function is squared error, this $\gamma_{jm}$ is the average residual for points in $R_{jm}$:
+          $$\gamma_{jm} = \arg \min_{\gamma} \sum_{x_i \in R_{jm}} L(y_i, f_{m-1}(x_i) + \gamma)$$
+          
+        - For squared error loss, $\gamma_{jm}$ is the mean of $r_{im}$ for $x_i \in R_{jm}$.
+
+     d. **Update the Model**:
+        - Update $f_m(x)$ by adding the scaled contributions of the fitted tree:
+          
+          $f_m(x) = f_{m-1}(x) + \eta \sum_{j=1}^{J_m} \gamma_{jm} 1(x \in R_{jm})$
+        - Here, $\eta$ is a learning rate that controls the contribution of each tree.
+
+3. **Final Output**:
+   - After $M$ iterations, output the final model $f_M(x)$, which is the sum of the initial model and the contributions from all $M$ boosting steps.
+
+---
+---
 
