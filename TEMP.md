@@ -1,3 +1,5 @@
+---
+---
 ## Principal Component Analysis (PCA)
 - The aim of Principal Component Analysis (PCA) is to find a direction or vector onto which the projection of data points will have the maximum variance. This direction is called the principal component. PCA identifies the directions (principal components) in which the data varies the most and projects the data onto these directions to reduce dimensionality while retaining the most significant information.
 
@@ -36,4 +38,31 @@
      
    - If you reduce from m features to p (e.g., 4 features to 2), the result will be a $n \times p$ matrix (e.g., $1000 \times 2$ matrix).
 
-This new dataset retains most of the variance (information) with fewer dimensions, which can simplify analysis and visualization.
+
+---
+---
+
+## Linear Discriminant Analysis (LDA)
+
+Given a dataset with $c$ classes, let:
+- $\mathbf{X} = [\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n]$ represent the dataset with $n$ samples.
+- Each sample $\mathbf{x}_i \in \mathbb{R}^d$ is a $d$-dimensional feature vector.
+- Let $\mathbf{X}_j$ be the subset of samples belonging to class $j$, which has $n_j$ samples.
+
+1. **Class Mean Vector**: $m_j = \frac{1}{n_j} \sum_{x \in X_j} x$
+2. **Within-Class Scatter Matrix**: The spread of each class around its own mean. $S_W = \sum_{j=1}^{c} \sum_{x \in X_j} (x - m_j)(x - m_j)^T$
+3. **Between-Class Scatter Matrix**: How far apart the class means are from the overall mean. $S_B = \sum_{j=1}^{c} n_j (m_j - m)(m_j - m)^T$
+4. **Optimization Objective**: find a projection vector w that maximizes the ratio of between-class variance to within-class variance. $J(w) = \frac{w^T S_B w}{w^T S_W w}$
+5. **Eigenvalue Problem**: $S_B w = \lambda S_W w$
+	1. Compute the eigenvalues and eigenvectors of $\mathbf{S}_W^{-1} \mathbf{S}_B$.
+	2. Sort the eigenvectors by their corresponding eigenvalues in descending order.
+	3. Select the top $k$ eigenvectors (where $k \leq c - 1$) to form the transformation matrix $\mathbf{W}$.
+
+### Imp Points
+- **Assumptions:** LDA assumes that each class follows a Gaussian distribution with identical covariance matrices, and it is sensitive to outliers and class imbalances.
+- Aims to maximize the distace b/w classes and minimise the variance within each class' data points
+- **Computationally Efficient:** LDA is faster than some non-linear techniques (e.g., t-SNE or UMAP) because it is a linear method.
+- **LDA vs. PCA**
+	- PCA: An unsupervised method that focuses on maximizing variance, capturing the most important features regardless of class labels.
+	- LDA: A supervised method that maximizes class separability, explicitly using class labels to create dimensions that emphasize distinctions between classes.
+
