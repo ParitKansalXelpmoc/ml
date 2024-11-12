@@ -1,3 +1,21 @@
+## **Content**
+
+- [Feature Scaling](#feature-scaling)
+
+- [Encoding Categorical Data](#encoding-categorical-data)
+
+- [Mathematical Transformations](#mathematical-transformations)
+
+- [Encoding Numerical Features](#encoding-numerical-features)
+
+- [Outlier Handling](#outlier)
+
+- [Handling Missing Values](#handling-missing-values)
+    - [Removing](#removing)
+    - [KNN Imputer](#knn-imputer)
+    - [Iterative Imputer](#iterative-imputative)
+
+- [Principal Component Analysis (PCA)](#principal-component-analysis-pca)
 
 ---
 ---
