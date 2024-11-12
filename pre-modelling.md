@@ -1,41 +1,53 @@
 ## **Content**
 
 - [Feature Scaling](#feature-scaling)
-
+  - [Standardization](#1-standardization)
+  - [Normalization](#2-normalization)
 - [Encoding Categorical Data](#encoding-categorical-data)
-
 - [Mathematical Transformations](#mathematical-transformations)
-
+  - [Function Transformation](#1-function-transformation)
+  - [Power Transform](#2-power-transform)
+  - [Quantile Transformation](#3-quantile-transformation)
 - [Encoding Numerical Features](#encoding-numerical-features)
-
+  - [Discretizationbinning](#1-discretizationbinning)
+  - [Binarization](#2-binarization)
 - [Outlier Handling](#outlier)
-
+  - [Outlier Detection Techniques](#outlier-detection-techniques)
+  - [Outlier Handling Techniques](#outlier-handling-techniques)
 - [Handling Missing Values](#handling-missing-values)
     - [Removing](#removing)
     - [KNN Imputer](#knn-imputer)
     - [Iterative Imputer](#iterative-imputative)
-
 - [Principal Component Analysis (PCA)](#principal-component-analysis-pca)
 
 ---
 ---
 
 ## **Feature Scaling**
-1. **Standardization**
+#### 1. Standardization
    - Formula: $x' = \frac{x - \text{mean}(x)}{\sigma}$
    - Standardized data has a mean of 0 and a standard deviation of 1.
    - Useful when features are on different scales; works well with algorithms that assume normal distribution.
 
-2. **Normalization**
-     - **Min-Max Scaling**: Scales data to a fixed range, typically [0, 1] or [-1, 1].
-       - Formula: $x' = \frac{x - \text{min}(x)}{\text{max}(x) - \text{min}(x)}$
-       - **Used for data where negative and positive values are known.**
-     - **Max Abs Scaling**: Divides each value by the maximum absolute value in the feature, scaling between -1 and 1.
-     	- Formula: $x' = \frac{x}{max(|x|)}$
-       - **Works well with sparse data.**
-     - **Robust Scaling**: Uses the Interquartile Range (IQR) instead of min and max, making it less sensitive to outliers.
-       - Formula: $x' = \frac{x - \text{median}(x)}{\text{IQR}}$
-       - **Works well with outliers.**
+#### 2. Normalization
+
+- **Min-Max Scaling**: Scales data to a fixed range, typically [0, 1] or [-1, 1].
+
+	- Formula: $x' = \frac{x - \text{min}(x)}{\text{max}(x) - \text{min}(x)}$
+
+ 	- **Used for data where negative and positive values are known.**
+   
+- **Max Abs Scaling**: Divides each value by the maximum absolute value in the feature, scaling between -1 and 1.
+
+  	- Formula: $x' = \frac{x}{max(|x|)}$
+       	
+	- **Works well with sparse data.**
+
+- **Robust Scaling**: Uses the Interquartile Range (IQR) instead of min and max, making it less sensitive to outliers.
+
+  	- Formula: $x' = \frac{x - \text{median}(x)}{\text{IQR}}$
+       	
+	- **Works well with outliers.**
 ---
 ---
 
