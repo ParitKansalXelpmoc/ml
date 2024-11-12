@@ -1,7 +1,14 @@
+---
+---
+---
 
+
+
+$\sqrt{\text{Squared distace}*\frac{\text{Total No of columns}}{\text{no of cols filled in row}}}$
 ---
 ---
-### Feature Scaling
+
+## Feature Scaling
 1. **Standardization**
    - Formula: $x' = \frac{x - \text{mean}(x)}{\sigma}$
    - Standardized data has a mean of 0 and a standard deviation of 1.
@@ -20,7 +27,7 @@
 ---
 ---
 
-### Encoding Categorical Data
+## Encoding Categorical Data
 
 1. **Ordinal Encoding**
    
@@ -42,6 +49,7 @@
    ```
 ---
 ---
+
 ## **Mathematical Transformations**
 
 ### 1) **Function Transformation**
@@ -97,7 +105,9 @@
 
 ---
 ---
+
 ## Encoding numerical features
+
 ### 1. **Discretization/Binning**
 - **Unsupervised Binning**: Bins are created without considering target variable labels.
   - **Uniform Binning (Equal Width)**
@@ -118,6 +128,7 @@ Converts continuous data into binary (0 or 1) values.
 ---
 ---
 
+## Outlier
 
 ### Outlier Detection Techniques
 
@@ -135,6 +146,8 @@ Converts continuous data into binary (0 or 1) values.
    - In this method, outliers are identified based on percentiles. Values in the lower or upper extremes (e.g., below the 1st percentile or above the 99th percentile) are marked as outliers.
    - This approach is particularly useful when dealing with highly skewed distributions or when specific cutoffs are preferred.
 
+---
+
 ### Outlier Handling Techniques
 
 1. **Trimming (Removing Outliers)**
@@ -142,5 +155,82 @@ Converts continuous data into binary (0 or 1) values.
 
 2. **Capping**
    - Replace the outliers with a set boundary
+
+---
+
+## Handling Missing Values
+
+![](https://github.com/ParitKansal/ml/blob/main/photos/MissingValues.png)
+
+---
+
+### Removing
+Remove rows that have missing values but only if
+- Check if the missing data is random.
+- missing percentage is less than 5%.
+- the probability density function (PDF) of numerical columns are similar before and after removal
+- the distribution of categorical values are similar before and after removal
+
+---
+
+| **Row** | **feature1** | **feature2** | **feature3** |
+|---------|--------------|--------------|--------------|
+| **0**   | 1.0          | 2.0          | 1.5          |
+| **1**   | 2.0          | NaN          | 2.5          |
+| **2**   | NaN          | 6.0          | 3.5          |
+| **3**   | 4.0          | 8.0          | NaN          |
+| **4**   | 5.0          | 10.0         | 5.5          |
+
+
+### Step 1: **Calculate Squared Euclidean Distance**
+
+|           | **Row 0** | **Row 1** | **Row 2** | **Row 3** | **Row 4** |
+|-----------|-----------|-----------|-----------|-----------|-----------|
+| **Row 0** |$= (1.0 - 2.0)^2 + (1.5 - 2.5)^2 = 2$|$= (1.0 - 2.0)^2 + (1.5 - 2.5)^2= 2$|$= (2.0 - 6.0)^2 + (1.5 - 3.5)^2 = 20$|$= (1.0 - 4.0)^2 + (2.0 - 8.0)^2 = 45$|$= (1.0 - 5.0)^2 + (2.0 - 10.0)^2 + (1.5 - 5.5)^2 = 96$|
+| **Row 1** | 2         |$= (2.5 - 3.5)^2 = (-1)^2 = 1$| 1         |$= (2.0 - 4.0)^2 + (2.5 - 8.0)^2= 34.25$|$= (2.0 - 5.0)^2 + (2.5 - 5.5)^2 = 18$|
+| **Row 2** | 20        | 1         | 0         |$= (6.0 - 8.0)^2 = 4$|$= (6.0 - 10.0)^2 + (3.5 - 5.5)^2 = 20$|
+| **Row 3** | 45        | 34.25     | 4         | 0         |$= (4.0 - 5.0)^2 + (8.0 - 10.0)^2 = 5$|
+| **Row 4** | 96        | 18        | 20        | 5         | 0         |
+
+
+|           | **Row 0** | **Row 1** | **Row 2** | **Row 3** | **Row 4** |
+|-----------|-----------|-----------|-----------|-----------|-----------|
+| **Row 0** | 0         | 2         | 20        | 45        | 96        |
+| **Row 1** | 2         | 0         | 1         | 34.25     | 18        |
+| **Row 2** | 20        | 1         | 0         | 4         | 20        |
+| **Row 3** | 45        | 34.25     | 4         | 0         | 5         |
+| **Row 4** | 96        | 18        | 20        | 5         | 0         |
+
+### Step 2: **Non-Euclidean Distances:**
+
+$\sqrt{\text{Squared distace}*\frac{\text{Total No of columns}}{\text{no of cols filled in row}}}$
+
+|           | **Row 0**                             | **Row 1**                             | **Row 2**                             | **Row 3**                             | **Row 4**                             |
+|-----------|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|
+| **Row 0** | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 0)} = 0$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 1)} = 1.732$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 2)} = 5.477$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 3)} = 9.486$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 4)} = 16.970$ |
+| **Row 1** | $\sqrt{\frac{2}{3} \cdot \text{dis}(1, 0)} = 1.632$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(1, 1)} = 0$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(1, 2)} = 0.816$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(1, 3)} = 4.268$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(1, 4)} = 3.464$ |
+| **Row 2** | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 0)} = 5.477$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 1)} = 0.816$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 2)} = 0$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 3)} = 1.632$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 4)} = 5.477$ |
+| **Row 3** | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 0)} = 9.486$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 1)} = 4.268$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 2)} = 1.632$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 3)} = 0$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 4)} = 2.581$ |
+| **Row 4** | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 0)} = 16.970$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 1)} = 3.464$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 2)} = 5.477$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 3)} = 2.581$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 4)} = 0$ |
+
+
+### Step 3: **Apply Uniform or dist method for finding missing values**
+- **Uniform Method:** This method uses the average of the feature values of the K nearest neighbors. You can define the number of neighbors (K) and fill in missing values based on their average. 
+- **Distance Method:** In this method, the weighted average of the feature values is calculated, where the weights are the inverse of the non-Euclidean distance: $\frac{\sum\frac{1}{dist}*\text{feature Value}}{\sum\frac{1}{dist}}$
+
+
+| **Row** | **Feature 1** | **Feature 2** | **Feature 3** |
+|---------|---------------|---------------|---------------|
+| 0       | 1.0           | 2.0           | 1.5           |
+| 1       | 2.0           |$= \frac{\left(\frac{1}{1.632} \times 2.0\right) + \left(\frac{1}{0.816} \times 6.0\right) + \left(\frac{1}{4.268} \times 8.0\right) + \left(\frac{1}{3.464} \times 10.0\right)}{\left(\frac{1}{1.632} + \frac{1}{0.816} + \frac{1}{4.268} + \frac{1}{3.464}\right)}  \approx 5.65$ | 2.5           |
+| 2       |$= \frac{\left(\frac{1}{5.477} \times 1.0\right) + \left(\frac{1}{0.816} \times 2.0\right) + \left(\frac{1}{1.632} \times 4.0\right) + \left(\frac{1}{5.477} \times 5.0\right)}{\left(\frac{1}{5.477} + \frac{1}{0.816} + \frac{1}{1.632} + \frac{1}{5.477}\right)} \approx 3.82$| 6.0           | 3.5           |
+| 3       | 4.0           | 8.0           |$= \frac{\left(\frac{1}{9.486} \times 1.5\right) + \left(\frac{1}{4.268} \times 2.5\right) + \left(\frac{1}{1.632} \times 3.5\right) + \left(\frac{1}{2.581} \times 5.5\right)}{\left(\frac{1}{9.486} + \frac{1}{4.268} + \frac{1}{1.632} + \frac{1}{2.581}\right)} \approx 3.75$|
+| 4       | 5.0           | 10.0          | 5.5           |
+
+
 ---
 ---
+
+
+
+
