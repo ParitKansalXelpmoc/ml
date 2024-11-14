@@ -24,6 +24,9 @@
 	- Boosting
 		- [**Ada Boosting**](#ada-boosting)
  		- [**Gradient Boosting**](#gradient-boosting)
+    		- [For Regression](#gradient-boosting-for-regression)
+     		- [For Classification](#gradient-boosting-for-classification)
+			- [For Every Loss Fun](#algorithmapplicale-for-every-loss-fun)
 - Clustering
 	- [**K-Means**](#k-means)
 	- [**DBSCAN**](#dbscan)
