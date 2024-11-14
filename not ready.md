@@ -1,4 +1,41 @@
+### XGBoost for Regression 
 
+1. **Initialize with the Mean Model**:
+   - Set the initial prediction for all data points as the mean of the target variable, $\text{prediction} = \text{mean}(y)$.
+   - Store this initial mean model in `models_list`.
+
+2. **Iterative Training with Trees**:
+   - For each iteration $i$ from 1 to `n_estimators`:
+     - **Calculate Residuals**: $\text{residual} = y - \text{prediction}$
+     - **Build a Decision Tree**:
+       - Train a decision tree based on a custom "Similarity Score," defined as:
+         $\text{Similarity Score} = \frac{\left(\sum \text{ residuals}\right)^2}{\text{Count of residuals} + \lambda}$
+       - For each split in the tree:
+         - **Calculate Similarity Score** for the tree nodes.
+         - Determine splits based on the criterion where $Gani$ is maximized:
+           $Gani = SS_{\text{right}} + SS_{\text{left}} - SS_{\text{parent}}$
+         - Select the split that maximizes $Gani$.
+       - Set the **output at a node** to be the Similarity Score of that node.
+     - **Update Prediction**:
+       - Add the tree's prediction, scaled by a learning rate $\eta$, to the cumulative prediction:
+         $\text{prediction} += \eta \times \text{tree.predict}(X)$
+
+3. **Final Prediction Aggregation**:
+   - Combine predictions from all models (starting with the mean model) in `models_list`:
+     $\text{result} =$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\dots$
+
+
+
+
+
+
+
+
+
+
+
+
+---
 ---
 # XGBOOST
 
