@@ -1,6 +1,3 @@
-$\text{log odds} = ln\left(\frac{\text{Count of Ones}}{\text{Count of Zeros}}\right)$
-
-$\text{prob} = \frac{1}{1+e^{-\text{ log odds}}}$
 
 ---
 # XGBOOST
