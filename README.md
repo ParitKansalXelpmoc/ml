@@ -529,6 +529,8 @@ $bin_i=(a_i,b_i) = (b_{i-1},b_{i-1}+w_i^{\text{new normal}})$
 
 $Result = Model_0(X) + \eta \cdot Model_1(X) + \eta \cdot Model_2(X) + \dots + \eta \cdot Model_n(X)$
 
+### Gradient Boosting for regression
+
 - ALGORITHM:
    ```python
    prediction = mean(y)  # Initial prediction, starting with the mean of the target values
@@ -542,6 +544,52 @@ $Result = Model_0(X) + \eta \cdot Model_1(X) + \eta \cdot Model_2(X) + \dots + \
    
    result = models_list[0](X) + models_list[1](X) + models_list[2](X)M_0(X) + ...
    ```
+
+---
+
+### Gradient Boosting for Classification
+
+1. **Initialize Log Odds**:
+   - Compute the initial log odds:
+
+        **$\text{log odds} = \ln\left(\frac{\text{Count of Ones}}{\text{Count of Zeros}}\right)$**
+     
+   - Append the initial log odds to the `models_list` as the first model:
+
+     modelsList.append(log_odds)
+
+2. **Loop Over Each Estimator**:
+   - For each $i$ from 1 to $n_{\text{estimators}}$:
+     1. Calculate the initial probability:
+
+        **$\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$**
+        
+     3. Calculate residuals for the current predictions: 
+
+        $\text{residual} = y - \text{prob}$
+        
+     5. Train a weak learner on residuals: 
+
+        WeakLearner = tree.fit(X, residual)
+        
+     6. Identify the leaf node number for each data point in the tree.
+
+     7. For each leaf node, compute log loss:
+
+        $\text{log loss} = \frac{\sum \text{Residual}}{\sum[\text{PrevProb} \times (1 - \text{PrevProb})]}$
+
+        
+     8. Append the trained model (with calculated log losses in the leaf nodes) to `models_list`: modelsList.append(tree)
+
+     9. For each point, update `log_loss` by adding the weighted log loss from the new tree:
+        
+        $\text{log loss} += \eta \cdot (\text{log loss from tree})$
+
+4. **Calculate Final Log Loss Prediction**:
+   - Aggregate the log losses from each model in `models_list`: $\text{log loss} = modelsList [0] (X) + \eta \cdot modelsList [1] (X) + \eta \cdot modelsList [2] (X) + \dots$
+
+5. **Convert Log Loss to Final Probability**:
+   - $\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$
 
 ---
 
