@@ -1,3 +1,28 @@
+
+$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2}  \right] + \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2$
+
+$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2} + \frac{1}{2} \lambda w_j^2 \right] + \gamma T$
+
+$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) w_j^2 \right] + \gamma T $
+
+$\frac{\partial \mathcal{L}^{(t)}}{\partial w_j} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) 2 w_j \right] = 0$
+
+for a tree Node
+
+
+1. **First Equation:**
+
+    $\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, f_1(x_i) + f_2(x_i) + \dots + f_t(x_i)\right) + \Omega(f_t(x_i))$
+
+    $\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, \hat{y}^{(t-1)} + f_t(x_i)\right) + \Omega(f_t(x_i))$
+
+- The **loss term** measures how well the predictions match the target values.
+- The **regularization term** $\Omega$ controls the complexity of the newly added model $f_t(x_i)$, often defined as:
+  $\Omega(f) = \gamma T + \frac{1}{2} \lambda \|w\|^2,$
+  where $T$ is the number of leaves, $w$ are the leaf weights, and $\gamma, \lambda$ are regularization hyperparameters.
+
+
+
 ---
 
 # XGBOOST
