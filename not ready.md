@@ -9,7 +9,7 @@
      - **Calculate Residuals**: $\text{residual} = y - \text{prediction}$
      - **Build a Decision Tree**:
        - Train a decision tree based on a custom "Similarity Score," defined as:
-         $\text{Similarity Score} = \frac{\left(\sum \text{ residuals}\right)^2}{\text{Count of residuals} + \lambda}$
+         $\text{Similarity Score} = \frac{\left(\sum \text{ residuals}_i\right)^2}{\text{Count of residuals} + \lambda}$
        - For each split in the tree:
          - **Calculate Similarity Score** for the tree nodes.
          - Determine splits based on the criterion where $Gani$ is maximized:
