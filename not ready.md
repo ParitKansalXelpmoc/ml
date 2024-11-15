@@ -35,13 +35,13 @@
      - **Calculate Residuals**: $\text{residual} = y - \text{prediction}$
      - **Build a Decision Tree**:
        - Train a decision tree based on a custom "Similarity Score," defined as:
-         $\text{Similarity Score} = \frac{\left(\sum \text{ residuals}_i\right)^2}{\text{Count of residuals} + \lambda}$
+         $\text{Similarity Score} = \frac{\left(\sum \text{ residuals}\right)^2}{\text{Count of residuals} + \lambda}$
        - For each split in the tree:
          - **Calculate Similarity Score** for the tree nodes.
          - Determine splits based on the criterion where $Gani$ is maximized:
            $Gani = SS_{\text{right}} + SS_{\text{left}} - SS_{\text{parent}}$
          - Select the split that maximizes $Gani$.
-       - Set the **output at a node** to be the Similarity Score of that node.
+       - Set the **output at a node**: $\frac{\sum \text{ Residuals}}{\text{Count of residuals} + \lambda}$
      - **Update Prediction**:
        - Add the tree's prediction, scaled by a learning rate $\eta$, to the cumulative prediction:
          $\text{prediction} += \eta \times \text{tree.predict}(X)$
@@ -62,7 +62,7 @@
         - Calculate the initial probability: **$\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$**
         - Calculate residuals for the current predictions: $\text{residual} = y - \text{prob}$
         - **Build a Decision Tree**:
-            - Train a decision tree based on a custom "Similarity Score," defined as: $\text{Similarity Score} = \frac{\left(\sum  \text{ residuals}_i\right)^2}{\sum[\text{PrevProb}_i(1-\text{PrevProb}_i)] + \lambda}$
+            - Train a decision tree based on a custom "Similarity Score," defined as: $\text{Similarity Score} = \frac{\left(\sum  \text{ residuals}\right)^2}{\sum[\text{PrevProb}×(1-\text{PrevProb})] + \lambda}$
            - For each split in the tree:
                 - **Calculate Similarity Score** for the tree nodes.
                 - Determine splits based on the criterion where $Gani$ is maximized: $Gani = SS_{\text{right}} + SS_{\text{left}} - SS_{\text{parent}}$
