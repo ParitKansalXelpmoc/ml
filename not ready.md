@@ -1,3 +1,29 @@
+---
+
+# XGBOOST
+
+#### Why Gradient Boosting
+- Flexiblity
+   - Cross Platform - For windows, Linux
+   - Multiple Language Support - Multiple Programing Lang
+   - Integration with other libraries and tools
+   - Support all kinds of ML problems - Regression, classification, Time Series, Ranking
+- Speed - Almost 1/10th time of normal time taken by other ML algos
+   - Parallel Processing - Apply parallel processing in creation of decision tree, **n_jobs = -1**
+   - Optimized Data Structures - Store data in column instead of rows 
+   - Cache Awareness
+   - Out of Core computing - **tree_method = hist**
+   - Distributed Computing
+   - GPU Support - **tree_method = gpu_hist**
+- Performance
+   - Regularized Learning Objective
+   - Handling Missing values
+   - sparsity Aware Spit Finding
+   - Efficient Spit Finding(Weighted Quantile Sketch + Approximate Tree Learning) - Instead of spliting on each point in a column we can divide the data in bins 
+   - Tree Pruning
+
+---
+
 ### XGBoost for Regression 
 
 1. **Initialize with the Mean Model**:
@@ -24,42 +50,30 @@
    - Combine predictions from all models (starting with the mean model) in `models_list`:
      $\text{result} =$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\dots$
 
-
-
-
-
-
-
-
-
-
-
-
 ---
----
-# XGBOOST
+# Gradient Boosting for Classification
 
-#### Why Gradient Boosting
-- Flexiblity
-   - Cross Platform - For windows, Linux
-   - Multiple Language Support - Multiple Programing Lang
-   - Integration with other libraries and tools
-   - Support all kinds of ML problems - Regression, classification, Time Series, Ranking
-- Speed - Almost 1/10th time of normal time taken by other ML algos
-   - Parallel Processing - Apply parallel processing in creation of decision tree, **n_jobs = -1**
-   - Optimized Data Structures - Store data in column instead of rows 
-   - Cache Awareness
-   - Out of Core computing - **tree_method = hist**
-   - Distributed Computing
-   - GPU Support - **tree_method = gpu_hist**
-- Performance
-   - Regularized Learning Objective
-   - Handling Missing values
-   - sparsity Aware Spit Finding
-   - Efficient Spit Finding(Weighted Quantile Sketch + Approximate Tree Learning) - Instead of spliting on each point in a column we can divide the data in bins 
-   - Tree Pruning
+- **Initialize Log Odds**:
+    - Compute the initial log odds: **$\text{log odds} = \ln\left(\frac{\text{Count of Ones}}{\text{Count of Zeros}}\right)$**
+    - Append the initial log odds to the `models_list` as the first model: modelsList.append(log_odds)
 
----
+- **Loop Over Each Estimator**:
+    - For each $i$ from 1 to $n_{\text{estimators}}$:
+        - Calculate the initial probability: **$\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$**
+        - Calculate residuals for the current predictions: $\text{residual} = y - \text{prob}$
+        - **Build a Decision Tree**:
+            - Train a decision tree based on a custom "Similarity Score," defined as: $\text{Similarity Score} = \frac{\left(\sum  \text{ residuals}_i\right)^2}{\sum[\text{PrevProb}_i(1-\text{PrevProb}_i)] + \lambda}$
+           - For each split in the tree:
+                - **Calculate Similarity Score** for the tree nodes.
+                - Determine splits based on the criterion where $Gani$ is maximized: $Gani = SS_{\text{right}} + SS_{\text{left}} - SS_{\text{parent}}$
+                - Select the split that maximizes $Gani$.
+            - Set the **output at a node**: $\text{log loss} = \frac{\sum \text{Residual}}{\sum[\text{PrevProb} \times (1 - \text{PrevProb})] + \lambda}$
+        - Append the trained model to `models_list`: modelsList.append(tree)
+        - For each point, update `log_loss` by adding the weighted log loss from the new tree: $\text{log loss} += \eta \cdot (\text{log loss from tree})$
+
+- **Calculate Final Log Loss Prediction**: $\text{Total log loss} = modelsList [0] (X) + \eta \cdot modelsList [1] (X) + \eta \cdot modelsList [2] (X) + \dots$
+
+- **Convert Log Loss to Final Probability**: $\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$
 ---
 
 ## Bagging Vs Random Forest
