@@ -9,6 +9,9 @@ $\frac{\partial \mathcal{L}^{(t)}}{\partial w_j} = \sum_{j=1}^T\left[ {\sum_{i \
 
 for a tree Node
 
+$\left[ {\sum_{i \in I_j} g_i} + \left({\sum_{i \in I_j} h_i} + \lambda \right) w_j \right] = 0$
+
+$w_j = \frac{-{\sum_{i \in I_j} g_i}} {{\sum_{i \in I_j} h_i} + \lambda} $
 
 1. **First Equation:**
 
