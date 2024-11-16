@@ -1,33 +1,3 @@
-
-$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2}  \right] + \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2$
-
-$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2} + \frac{1}{2} \lambda w_j^2 \right] + \gamma T$
-
-$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) w_j^2 \right] + \gamma T $
-
-$\frac{\partial \mathcal{L}^{(t)}}{\partial w_j} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) 2 w_j \right] = 0$
-
-for a tree Node
-
-$\left[ {\sum_{i \in I_j} g_i} + \left({\sum_{i \in I_j} h_i} + \lambda \right) w_j \right] = 0$
-
-$w_j = \frac{-{\sum_{i \in I_j} g_i}} {{\sum_{i \in I_j} h_i} + \lambda} $
-
-1. **First Equation:**
-
-    $\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, f_1(x_i) + f_2(x_i) + \dots + f_t(x_i)\right) + \Omega(f_t(x_i))$
-
-    $\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, \hat{y}^{(t-1)} + f_t(x_i)\right) + \Omega(f_t(x_i))$
-
-- The **loss term** measures how well the predictions match the target values.
-- The **regularization term** $\Omega$ controls the complexity of the newly added model $f_t(x_i)$, often defined as:
-  $\Omega(f) = \gamma T + \frac{1}{2} \lambda \|w\|^2,$
-  where $T$ is the number of leaves, $w$ are the leaf weights, and $\gamma, \lambda$ are regularization hyperparameters.
-
-
-
----
-
 # XGBOOST
 
 #### Why Gradient Boosting
@@ -79,13 +49,13 @@ $w_j = \frac{-{\sum_{i \in I_j} g_i}} {{\sum_{i \in I_j} h_i} + \lambda} $
      $\text{result} =$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\dots$
 
 ---
-# Gradient Boosting for Classification
+### XGBoost for Classification
 
-- **Initialize Log Odds**:
+1. **Initialize Log Odds**:
     - Compute the initial log odds: **$\text{log odds} = \ln\left(\frac{\text{Count of Ones}}{\text{Count of Zeros}}\right)$**
     - Append the initial log odds to the `models_list` as the first model: modelsList.append(log_odds)
 
-- **Loop Over Each Estimator**:
+2. **Loop Over Each Estimator**:
     - For each $i$ from 1 to $n_{\text{estimators}}$:
         - Calculate the initial probability: **$\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$**
         - Calculate residuals for the current predictions: $\text{residual} = y - \text{prob}$
@@ -99,9 +69,42 @@ $w_j = \frac{-{\sum_{i \in I_j} g_i}} {{\sum_{i \in I_j} h_i} + \lambda} $
         - Append the trained model to `models_list`: modelsList.append(tree)
         - For each point, update `log_loss` by adding the weighted log loss from the new tree: $\text{log loss} += \eta \cdot (\text{log loss from tree})$
 
-- **Calculate Final Log Loss Prediction**: $\text{Total log loss} = modelsList [0] (X) + \eta \cdot modelsList [1] (X) + \eta \cdot modelsList [2] (X) + \dots$
+3. **Calculate Final Log Loss Prediction**: $\text{Total log loss} = modelsList [0] (X) + \eta \cdot modelsList [1] (X) + \eta \cdot modelsList [2] (X) + \dots$
 
-- **Convert Log Loss to Final Probability**: $\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$
+4. **Convert Log Loss to Final Probability**: $\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$
+
+---
+
+### Mathmatics For XGBoost
+
+$\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, f_1(x_i) + f_2(x_i) + \dots + f_t(x_i)\right) + \Omega(f_t(x_i))$
+
+$\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, \hat{y}^{(t-1)} + f_t(x_i)\right) + \Omega(f_t(x_i))$
+
+- The **loss term** measures how well the predictions match the target values.
+- The **regularization term** $\Omega$ controls the complexity of the newly added model $f_t(x_i)$, often defined as: $\Omega(f) = \gamma T + \frac{1}{2} \lambda \|w\|^2,$ where $T$ is the number of leaves, $w$ are the leaf weights, and $\gamma, \lambda$ are regularization hyperparameters.
+
+$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2}  \right] + \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2$
+
+$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2} + \frac{1}{2} \lambda w_j^2 \right] + \gamma T$
+
+$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) w_j^2 \right] + \gamma T $
+
+$\frac{\partial \mathcal{L}^{(t)}}{\partial w_j} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) 2 w_j \right] = 0$
+
+for a tree Node
+
+$\left[ {\sum_{i \in I_j} g_i} + \left({\sum_{i \in I_j} h_i} + \lambda \right) w_j \right] = 0$
+
+$w_j = \frac{-\sum_{i \in I_j} g_i}{\left(\sum_{i \in I_j} h_i\right) + \lambda}$ , $L^{\(t\)} = -\frac{1}{2}\sum_{j=1}^T \frac{(\sum_{i\in I_j} g_i)^2}{\sum_{i \in I_j} h_i + \lambda} + γT$
+, where $g_i = \frac{\partial L \left(y_i, \hat{y}_i^{\<t-1>}\right)}{\partial \hat{y}_i^{\<t-1>}}$, $h_i = \frac{\partial^2 L \left(y_i, \hat{y}_i^{\<t-1>}\right)}{\partial \hat{y}_i^{\<t-1> 2}}$
+
+for regression: $L_i = \frac{1}{2}(y_i - \hat{y}_i)^2$ , $g_i = \frac{\partial L_i}{\partial \hat{y}_i} = (\hat{y}_i - y_i)$ ,  $h_i=\frac{\partial^2 L_i}{\partial \hat{y}_i^2} = 1$
+
+$w_j = \frac{\sum_{i \in I_j} R_i}{N + \lambda}$ , $L_j = \frac{\sum_{i \in I_j} R_i^2}{N + \lambda}$
+
+
+---
 ---
 
 ## Bagging Vs Random Forest
