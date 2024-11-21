@@ -1,6 +1,14 @@
 
 # NLP
 
+## Content
+- [Text Preprocessing Steps](#text-preprocessing-steps)
+- [Text Representation & Text Embeddings](#text-representation--text-embeddings)
+    - [One-Hot Encoding](#one-hot-encoding)
+    - [Bag of Words (BoW)](#bag-of-wordbow)
+    - [N-Gram](#n-gram)
+    - [TF-IDF (Term Frequency-Inverse Document Frequency)](#tf-idf-term-frequency-inverse-document-frequency)
+    - [Word2Vec](#word2vec)
 
 ## Text Preprocessing Steps
 
@@ -27,6 +35,10 @@
     Reduce words to their root forms, even if the resulting word lacks meaning (e.g., "running" → "run").
 - **Lemmatization**  
     Reduce words to their meaningful base forms (e.g., "better" → "good").
+
+---
+---
+
 ## Text Representation / Text Embeddings
 
 #### **Common Terms**:
@@ -35,6 +47,8 @@
 - **Vocabulary**: The unique set of words or tokens in the corpus.
 - **Document**: A single piece of text (e.g., a sentence, paragraph, or article) in the corpus.
 - **Word**: An individual token from the vocabulary.
+
+---
 
 ### One Hot Encoding
 - **Steps**:
@@ -68,6 +82,7 @@
     - Out Of Vocabulary
     - No campturing of semantic
 
+---
 
 ### Bag Of Word(BOW)
 
@@ -102,6 +117,7 @@
     - Ordering Get Changed
     - No campturing of semantic
 
+---
 
 ### N Gram
 
@@ -140,6 +156,7 @@
     - Dimension Increses
     - Out Of Vocabulary
 
+---
 
 ### TF-IDF (Term Frequency-Inverse Document Frequency)
 
@@ -205,3 +222,27 @@
     - Out Of Vocabulary
     - Ordering Get Changed
     - No campturing of semantic
+
+---
+
+### Word2Vec
+
+#### CBOW
+
+- Make a window of odd size. Let the window size be 3.
+- The context words (word1, word3) are used to predict the target word (word2) ->  word1 ....?....  word3
+- Convert the words to one-hot encoding vectors.
+- feed it to neuron network given below 
+
+![](https://github.com/ParitKansal/photos/blob/main/CBOW.png)
+
+
+#### Skip Gram
+- Make a window of odd size. Let the window size be 3.
+- The target word (word2) is used to predict the context words (word1, word3). -> ....?.... word2 ....?....
+- Convert the words to one-hot encoding vectors.
+- Feed it to neuron network given below
+
+![](https://github.com/ParitKansal/photos/blob/main/SkipGram.png)
+
+---
