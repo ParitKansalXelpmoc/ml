@@ -1,123 +1,57 @@
-# XGBOOST
 
-#### Why Gradient Boosting
-- Flexiblity
-   - Cross Platform - For windows, Linux
-   - Multiple Language Support - Multiple Programing Lang
-   - Integration with other libraries and tools
-   - Support all kinds of ML problems - Regression, classification, Time Series, Ranking
-- Speed - Almost 1/10th time of normal time taken by other ML algos
-   - Parallel Processing - Apply parallel processing in creation of decision tree, **n_jobs = -1**
-   - Optimized Data Structures - Store data in column instead of rows 
-   - Cache Awareness
-   - Out of Core computing - **tree_method = hist**
-   - Distributed Computing
-   - GPU Support - **tree_method = gpu_hist**
-- Performance
-   - Regularized Learning Objective
-   - Handling Missing values
-   - sparsity Aware Spit Finding
-   - Efficient Spit Finding(Weighted Quantile Sketch + Approximate Tree Learning) - Instead of spliting on each point in a column we can divide the data in bins 
-   - Tree Pruning
+| **Metric**      | **Formula**                                                                             | **Description**                           |
+|-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|
+| **Accuracy**    | $\frac{TP + TN}{TP + TN + FP + FN}$                                                     |                                           |
+| **Precision**   | $\frac{TP}{TP + FP} = \frac{\text{True Positive}}{\text{Predicted Positive}}$           |                                           |
+| **Recall**      | $\frac{TP}{TP + FN} = \frac{\text{True Positive}}{\text{Real Positive}}$                |                                           |
+| **F1-score**    | $2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$                             |                                           |
+| **Log Loss**    | $- \frac{1}{n} \sum \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$ | Lower values indicate better performance. |
+
+
+
+
+
+
+| **Metric** | **Formula** | **Description** |
+|------------|-------------|-----------------|
+| **Mean Absolute Error (MAE)**      | $\frac{1}{n} \sum \|y_i - \hat{y}_i\|$                    | |
+| **Mean Squared Error (MSE)**       | $\frac{1}{n} \sum (y_i - \hat{y}_i)^2$                    | |
+| **Root Mean Squared Error (RMSE)** | $\sqrt{\frac{1}{n} \sum (y_i - \hat{y}_i)^2}$             | |
+| **R-squared (R²)**                 | $1 - \frac{\sum(y_i-\hat{y}_i)^2}{\sum(y_i-\bar{y}_i)^2}$ | |
+| **Adjusted R-squared**             |                                                           | useful for comparing models with different feature sets. |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
-### XGBoost for Regression 
+### **Classification Metrics**  
+1. **Accuracy**:  
+     $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
 
-1. **Initialize with the Mean Model**:
-   - Set the initial prediction for all data points as the mean of the target variable, $\text{prediction} = \text{mean}(y)$.
-   - Store this initial mean model in `models_list`.
+2. **Precision**:  
+     $Precision = \frac{TP}{TP + FP} = \frac{\text{True Positive}}{\text{Predicted Positive}}$
 
-2. **Iterative Training with Trees**:
-   - For each iteration $i$ from 1 to `n_estimators`:
-     - **Calculate Residuals**: $\text{residual} = y - \text{prediction}$
-     - **Build a Decision Tree**:
-       - Train a decision tree based on a custom "Similarity Score," defined as:
-         $\text{Similarity Score} = \frac{\left(\sum \text{ residuals}\right)^2}{\text{Count of residuals} + \lambda}$
-       - For each split in the tree:
-         - **Calculate Similarity Score** for the tree nodes.
-         - Determine splits based on the criterion where $Gani$ is maximized:
-           $Gani = SS_{\text{right}} + SS_{\text{left}} - SS_{\text{parent}}$
-         - Select the split that maximizes $Gani$.
-       - Set the **output at a node**: $\frac{\sum \text{ Residuals}}{\text{Count of residuals} + \lambda}$
-     - **Update Prediction**:
-       - Add the tree's prediction, scaled by a learning rate $\eta$, to the cumulative prediction:
-         $\text{prediction} += \eta \times \text{tree.predict}(X)$
+3. **Recall (Sensitivity, True Positive Rate)**:   
+     $Recall = \frac{TP}{TP + FN} = \frac{\text{True Positive}}{\text{Real Positive}}$
 
-3. **Final Prediction Aggregation**:
-   - Combine predictions from all models (starting with the mean model) in `models_list`:
-     $\text{result} =$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\eta.$ models_list\[0\]\(X\) + $\dots$
+4. **F1-score**:  
+     $F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$
 
----
-### XGBoost for Classification
-
-1. **Initialize Log Odds**:
-    - Compute the initial log odds: **$\text{log odds} = \ln\left(\frac{\text{Count of Ones}}{\text{Count of Zeros}}\right)$**
-    - Append the initial log odds to the `models_list` as the first model: modelsList.append(log_odds)
-
-2. **Loop Over Each Estimator**:
-    - For each $i$ from 1 to $n_{\text{estimators}}$:
-        - Calculate the initial probability: **$\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$**
-        - Calculate residuals for the current predictions: $\text{residual} = y - \text{prob}$
-        - **Build a Decision Tree**:
-            - Train a decision tree based on a custom "Similarity Score," defined as: $\text{Similarity Score} = \frac{\left(\sum  \text{ residuals}\right)^2}{\sum[\text{PrevProb}×(1-\text{PrevProb})] + \lambda}$
-           - For each split in the tree:
-                - **Calculate Similarity Score** for the tree nodes.
-                - Determine splits based on the criterion where $Gani$ is maximized: $Gani = SS_{\text{right}} + SS_{\text{left}} - SS_{\text{parent}}$
-                - Select the split that maximizes $Gani$.
-            - Set the **output at a node**: $\text{log loss} = \frac{\sum \text{Residual}}{\sum[\text{PrevProb} \times (1 - \text{PrevProb})] + \lambda}$
-        - Append the trained model to `models_list`: modelsList.append(tree)
-        - For each point, update `log_loss` by adding the weighted log loss from the new tree: $\text{log loss} += \eta \cdot (\text{log loss from tree})$
-
-3. **Calculate Final Log Loss Prediction**: $\text{Total log loss} = modelsList [0] (X) + \eta \cdot modelsList [1] (X) + \eta \cdot modelsList [2] (X) + \dots$
-
-4. **Convert Log Loss to Final Probability**: $\text{prob} = \frac{1}{1 + e^{-\text{log odds}}}$
-
----
-
-### Mathmatics For XGBoost
-
-$\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, f_1(x_i) + f_2(x_i) + \dots + f_t(x_i)\right) + \Omega(f_t(x_i))$
-
-$\mathcal{L}^{(t)} = \sum_{i=1}^n L\left(y_i, \hat{y}^{(t-1)} + f_t(x_i)\right) + \Omega(f_t(x_i))$
-
-- The **loss term** measures how well the predictions match the target values.
-- The **regularization term** $\Omega$ controls the complexity of the newly added model $f_t(x_i)$, often defined as: $\Omega(f) = \gamma T + \frac{1}{2} \lambda \|w\|^2,$ where $T$ is the number of leaves, $w$ are the leaf weights, and $\gamma, \lambda$ are regularization hyperparameters.
-
-$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2}  \right] + \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2$
-
-$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \frac{1}{2} {\sum_{i \in I_j} h_i w_j^2} + \frac{1}{2} \lambda w_j^2 \right] + \gamma T$
-
-$\mathcal{L}^{(t)} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i w_j} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) w_j^2 \right] + \gamma T $
-
-$\frac{\partial \mathcal{L}^{(t)}}{\partial w_j} = \sum_{j=1}^T\left[ {\sum_{i \in I_j} g_i} + \left( \frac{1}{2} {\sum_{i \in I_j} h_i} + \frac{1}{2} \lambda \right) 2 w_j \right] = 0$
-
-for a tree Node
-
-$\left[ {\sum_{i \in I_j} g_i} + \left({\sum_{i \in I_j} h_i} + \lambda \right) w_j \right] = 0$
-
-$w_j = \frac{-\sum_{i \in I_j} g_i}{\left(\sum_{i \in I_j} h_i\right) + \lambda}$ , $L^{\(t\)} = -\frac{1}{2}\sum_{j=1}^T \frac{(\sum_{i\in I_j} g_i)^2}{\sum_{i \in I_j} h_i + \lambda} + γT$
-, where $g_i = \frac{\partial L \left(y_i, \hat{y}_i^{\<t-1>}\right)}{\partial \hat{y}_i^{\<t-1>}}$, $h_i = \frac{\partial^2 L \left(y_i, \hat{y}_i^{\<t-1>}\right)}{\partial \hat{y}_i^{\<t-1> 2}}$
-
-for regression: $L_i = \frac{1}{2}(y_i - \hat{y}_i)^2$ , $g_i = \frac{\partial L_i}{\partial \hat{y}_i} = (\hat{y}_i - y_i)$ ,  $h_i=\frac{\partial^2 L_i}{\partial \hat{y}_i^2} = 1$
-
-$w_j = \frac{\sum_{i \in I_j} R_i}{N + \lambda}$ , $L_j = \frac{\sum_{i \in I_j} R_i^2}{N + \lambda}$
-
-
----
----
-
-## Bagging Vs Random Forest
-
-
-| **Bagging** | **Random Forest** |
-|-------------|-------------------|
-| In Bagging, feature sampling (or selection) is done before training each decision tree. A subset of features is chosen, and the entire tree uses only this subset of features to make splits. | In Random Forest, feature sampling occurs at each split in the tree. A random subset of features is chosen at each node, and the feature with the best Information Gain or Gini Index is used to make the split. |
-| This approach introduces less randomness to individual trees, as the same set of features is used throughout each tree. This can lead to lower variance if the features chosen are highly relevant. | By selecting a different subset of features at each split, Random Forest increases the diversity of the trees, helping to reduce overfitting and increasing model robustness by creating a more diverse "forest" of trees. |
-
-
-
-
+5. **Logarithmic Loss (Log Loss)**:  
+     $LogLoss = - \frac{1}{n} \sum_{i=1}^n \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$
+- Lower values indicate better performance.
 
 
 
