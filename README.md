@@ -32,6 +32,7 @@
      		- [For Regression](#xgboost-for-regression)
      		- [For Classification](#xgboost-for-classification)
      		- [Mathmatics For Xgboost](#mathmatics-for-xgboost)
+        - [Bagging Vs Random Forest](#bagging-vs-random-forest)
 - Clustering
 	- [**K-Means**](#k-means)
 	- [**DBSCAN**](#dbscan)
@@ -757,6 +758,16 @@ for regression: $L_i = \frac{1}{2}(y_i - \hat{y}_i)^2$ , $g_i = \frac{\partial L
 $w_j = \frac{\sum_{i \in I_j} R_i}{N + \lambda}$ , $L_j = \frac{\sum_{i \in I_j} R_i^2}{N + \lambda}$
 
 ---
+
+
+
+## Bagging Vs Random Forest
+
+| **Bagging** | **Random Forest** |
+|-------------|-------------------|
+| In Bagging, feature sampling (or selection) is done before training each decision tree. A subset of features is chosen, and the entire tree uses only this subset of features to make splits. | In Random Forest, feature sampling occurs at each split in the tree. A random subset of features is chosen at each node, and the feature with the best Information Gain or Gini Index is used to make the split. |
+| This approach introduces less randomness to individual trees, as the same set of features is used throughout each tree. This can lead to lower variance if the features chosen are highly relevant. | By selecting a different subset of features at each split, Random Forest increases the diversity of the trees, helping to reduce overfitting and increasing model robustness by creating a more diverse "forest" of trees. |
+
 ---
 ---
 ---
