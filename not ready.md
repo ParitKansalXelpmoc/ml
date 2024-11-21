@@ -1,11 +1,11 @@
 
-| **Metric**      | **Formula**                                                                             | **Description**                           |
-|-----------------|-----------------------------------------------------------------------------------------|-------------------------------------------|
-| **Accuracy**    | $\frac{TP + TN}{TP + TN + FP + FN}$                                                     |                                           |
-| **Precision**   | $\frac{TP}{TP + FP} = \frac{\text{True Positive}}{\text{Predicted Positive}}$           |                                           |
-| **Recall**      | $\frac{TP}{TP + FN} = \frac{\text{True Positive}}{\text{Real Positive}}$                |                                           |
-| **F1-score**    | $2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$                             |                                           |
-| **Log Loss**    | $- \frac{1}{n} \sum \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$ | Lower values indicate better performance. |
+| **Metric**      | **Formula**                                                                             | **Description**                             |
+|-----------------|-----------------------------------------------------------------------------------------|---------------------------------------------|
+| **Accuracy**    | $\frac{TP + TN}{TP + TN + FP + FN}$                                                     | Greater values indicate better performance. |
+| **Precision**   | $\frac{TP}{TP + FP} = \frac{\text{True Positive}}{\text{Predicted Positive}}$           | Greater values indicate better performance. |
+| **Recall**      | $\frac{TP}{TP + FN} = \frac{\text{True Positive}}{\text{Real Positive}}$                | Greater values indicate better performance. |
+| **F1-score**    | $2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$                             | Greater values indicate better performance. |
+| **Log Loss**    | $- \frac{1}{n} \sum \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$ | Lower values indicate better performance.   |
 
 
 
@@ -17,41 +17,16 @@
 | **Mean Absolute Error (MAE)**      | $\frac{1}{n} \sum \|y_i - \hat{y}_i\|$                    | |
 | **Mean Squared Error (MSE)**       | $\frac{1}{n} \sum (y_i - \hat{y}_i)^2$                    | |
 | **Root Mean Squared Error (RMSE)** | $\sqrt{\frac{1}{n} \sum (y_i - \hat{y}_i)^2}$             | |
-| **R-squared (R²)**                 | $1 - \frac{\sum(y_i-\hat{y}_i)^2}{\sum(y_i-\bar{y}_i)^2}$ | |
-| **Adjusted R-squared**             |                                                           | useful for comparing models with different feature sets. |
+| **R-squared (R²)**                 | $1 - \frac{\sum(y_i-\hat{y}_i)^2}{\sum(y_i-\bar{y}_i)^2}$ | Greater values indicate better performance. |
+| | | $0 ≤ \sum(y_i-\hat{y}_i)^2 ≤ \sum(y_i-\bar{y}_i)^2$ |
+| | | $⇒ 0 ≤ R^2 ≤ 1 $ |
+| **Adjusted R-squared $R^2_{adj}$**             |$1 - \frac{(1 - R^2)(N - 1)}{N - p - 1}$ | useful for comparing models with different feature sets. |
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
----
-
-### **Classification Metrics**  
-1. **Accuracy**:  
-     $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
-
-2. **Precision**:  
-     $Precision = \frac{TP}{TP + FP} = \frac{\text{True Positive}}{\text{Predicted Positive}}$
-
-3. **Recall (Sensitivity, True Positive Rate)**:   
-     $Recall = \frac{TP}{TP + FN} = \frac{\text{True Positive}}{\text{Real Positive}}$
-
-4. **F1-score**:  
-     $F1 = 2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$
-
-5. **Logarithmic Loss (Log Loss)**:  
-     $LogLoss = - \frac{1}{n} \sum_{i=1}^n \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$
-- Lower values indicate better performance.
 
 
 
