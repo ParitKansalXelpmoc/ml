@@ -750,8 +750,8 @@ for a tree Node
 
 $\left[ {\sum_{i \in I_j} g_i} + \left({\sum_{i \in I_j} h_i} + \lambda \right) w_j \right] = 0$
 
-$w_j = \frac{-\sum_{i \in I_j} g_i}{\left(\sum_{i \in I_j} h_i\right) + \lambda}$ , $L^{\(t\)} = -\frac{1}{2}\sum_{j=1}^T \frac{(\sum_{i\in I_j} g_i)^2}{\sum_{i \in I_j} h_i + \lambda} + γT$
-, where $g_i = \frac{\partial L \left(y_i, \hat{y}_i^{\<t-1>}\right)}{\partial \hat{y}_i^{\<t-1>}}$, $h_i = \frac{\partial^2 L \left(y_i, \hat{y}_i^{\<t-1>}\right)}{\partial \hat{y}_i^{\<t-1> 2}}$
+$w_j = \frac{-\sum_{i \in I_j} g_i}{\left(\sum_{i \in I_j} h_i\right) + \lambda}$ , $L^{(t)} = -\frac{1}{2}\sum_{j=1}^T \frac{(\sum_{i\in I_j} g_i)^2}{\sum_{i \in I_j} h_i + \lambda} + γT$
+, where $g_i = \frac{\partial L \left(y_i, \hat{y}_i^{(t-1)}\right)}{\partial \hat{y}_i^{(t-1)}}$, $h_i = \frac{\partial^2 L \left(y_i, \hat{y}_i^{(t-1)}\right)}{\partial \hat{y}_i^{(t-1) 2}}$
 
 for regression: $L_i = \frac{1}{2}(y_i - \hat{y}_i)^2$ , $g_i = \frac{\partial L_i}{\partial \hat{y}_i} = (\hat{y}_i - y_i)$ ,  $h_i=\frac{\partial^2 L_i}{\partial \hat{y}_i^2} = 1$
 
