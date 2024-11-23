@@ -22,7 +22,7 @@
 	- [Principal Component Analysis (PCA)](#principal-component-analysis-pca)
 	- [Linear Discriminant Analysis (LDA)](#linear-discriminant-analysis-lda)
  	- [Singular Value Decomposition (SVD)](#singular-value-decomposition-svd)
-
+- [Handling Imbalanced Data](#handling-imbalanced-data)
 ---
 ---
 
@@ -435,7 +435,7 @@ This process yields the matrices $\mathbf{U}$, $\mathbf{\Sigma}$, and $\mathbf{V
 - **Combine the original dataset with synthetic samples** to form a balanced dataset.
 
 ### 3. Ensemble Methods
-  ![](https://github.com/ParitKansal/ml/blob/main/photos/tempo2314.png)
+  ![](https://github.com/ParitKansal/ml/blob/main/photos/tempo231412.png)
 
 ### 4. Giving Weights to Different Classes  
 
