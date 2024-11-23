@@ -1,33 +1,23 @@
+# **Handling Imbalanced Data**
 
-| **Metric**      | **Formula**                                                                             | **Description**                             |
-|-----------------|-----------------------------------------------------------------------------------------|---------------------------------------------|
-| **Accuracy**    | $\frac{TP + TN}{TP + TN + FP + FN}$                                                     | Greater values indicate better performance. |
-| **Precision**   | $\frac{TP}{TP + FP} = \frac{\text{True Positive}}{\text{Predicted Positive}}$           | Greater values indicate better performance. |
-| **Recall**      | $\frac{TP}{TP + FN} = \frac{\text{True Positive}}{\text{Real Positive}}$                | Greater values indicate better performance. |
-| **F1-score**    | $2 \cdot \frac{Precision \cdot Recall}{Precision + Recall}$                             | Greater values indicate better performance. |
-| **Log Loss**    | $- \frac{1}{n} \sum \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]$ | Lower values indicate better performance.   |
+### 1. **Undersampling and Oversampling**  
+![](https://github.com/ParitKansal/ml/blob/main/photos/1_7xf9e1EaoK5n05izIFBouA.webp)
 
+---
 
+### 2. **SMOTE (Synthetic Minority Oversampling Technique)**  
+- **Train a k-NN model** on minority class observations:
+  - Identify the **k nearest neighbors** for each minority class sample (commonly \( k = 5 \)).  
 
+- **Create synthetic data**:
+  1. **Select 1 example** randomly from the minority class.  
+  2. **Select one neighbor** randomly from its $k$-nearest neighbors.  
+  3. Extract a **random number $\alpha$** between 0 and 1 for interpolation.  
+  4. Generate the synthetic sample using the formula:  $\text{Synthetic sample} = \text{Original sample} + \alpha \times (\text{Neighbor} - \text{Original sample})$
 
+- Repeat the process to create multiple synthetic samples.
 
-
-| **Metric** | **Formula** | **Description** |
-|------------|-------------|-----------------|
-| **Mean Absolute Error (MAE)**      | $\frac{1}{n} \sum \|y_i - \hat{y}_i\|$                    | |
-| **Mean Squared Error (MSE)**       | $\frac{1}{n} \sum (y_i - \hat{y}_i)^2$                    | |
-| **Root Mean Squared Error (RMSE)** | $\sqrt{\frac{1}{n} \sum (y_i - \hat{y}_i)^2}$             | |
-| **R-squared (R²)**                 | $1 - \frac{\sum(y_i-\hat{y}_i)^2}{\sum(y_i-\bar{y}_i)^2}$ | Greater values indicate better performance. |
-| | | $0 ≤ \sum(y_i-\hat{y}_i)^2 ≤ \sum(y_i-\bar{y}_i)^2$ |
-| | | $⇒ 0 ≤ R^2 ≤ 1 $ |
-| **Adjusted R-squared $R^2_{adj}$**             |$1 - \frac{(1 - R^2)(N - 1)}{N - p - 1}$ | useful for comparing models with different feature sets. |
-
-
-
-
-
-
-
+- **Combine the original dataset with synthetic samples** to form a balanced dataset.
 
 
 
