@@ -3,25 +3,21 @@
 ### 1. **Undersampling and Oversampling**  
 ![](https://github.com/ParitKansal/ml/blob/main/photos/1_7xf9e1EaoK5n05izIFBouA.webp)
 
----
-
 ### 2. **SMOTE (Synthetic Minority Oversampling Technique)**  
 - **Train a k-NN model** on minority class observations:
   - Identify the **k nearest neighbors** for each minority class sample (commonly \( k = 5 \)).  
-
 - **Create synthetic data**:
   1. **Select 1 example** randomly from the minority class.  
   2. **Select one neighbor** randomly from its $k$-nearest neighbors.  
   3. Extract a **random number $\alpha$** between 0 and 1 for interpolation.  
   4. Generate the synthetic sample using the formula:  $\text{Synthetic sample} = \text{Original sample} + \alpha \times (\text{Neighbor} - \text{Original sample})$
-
 - Repeat the process to create multiple synthetic samples.
-
 - **Combine the original dataset with synthetic samples** to form a balanced dataset.
 
+### 3. Ensemble Methods
+  ![](https://github.com/ParitKansal/ml/blob/main/photos/tempo2314.png)
 
-
-
+### 4. Giving Weights to Different Classes  
 
 
 
