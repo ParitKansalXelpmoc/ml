@@ -604,7 +604,7 @@ $m = \frac{\sum (y_i - \bar{y})(x_i - \bar{x})}{\sum (x_i - \bar{x})^2 + \lambda
 
 ### **Lasso Regression**
 
-$\text{Loss, } L = \sum (y - \hat{y})^2 + \lambda ||w|| = \sum (y - \hat{y})^2 + \lambda (|w_1| + |w_2| + |w_3| + \dots + |w_n|)$
+$\text{Loss, } L = \sum (y - \hat{y})^2 + \lambda ||w||$
 
 - For $m > 0$
 
