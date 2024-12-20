@@ -1384,23 +1384,32 @@ Density-connected means that $p$ and $q$ can be connected through a chain of Cor
    - Continue until all data points are merged into a single cluster, resulting in a hierarchy of clusters.
 
 
-### Types of Linkage Criteria (Ways to Measure Distance Between Clusters)
+#### Types of Linkage Criteria (Ways to Measure Distance Between Clusters)
 
-#### 1. Single Linkage (Minimum Linkage)
-   - Defines the distance between two clusters as the **minimum distance** between any point in one cluster and any point in the other.
-   - **Characteristics**: Tends to create elongated, chain-like clusters; sensitive to noise or outliers.
+1. **Single Linkage (Minimum Linkage)**
+- **Definition**: Distance between two clusters is the **minimum distance** between any point in one cluster and any point in the other.
+- **Characteristics**: 
+  - Tends to create elongated, chain-like clusters.
+  - **Disadvantage**: Highly sensitive to noise or outliers.
 
-#### 2. Complete Linkage (Maximum Linkage)
-   - Defines the distance between two clusters as the **maximum distance** between any point in one cluster and any point in the other.
-   - **Characteristics**: Tends to form compact, spherical clusters; less sensitive to outliers than single linkage.
+2. **Complete Linkage (Maximum Linkage)**
+- **Definition**: Distance between two clusters is the **maximum distance** between any point in one cluster and any point in the other.
+- **Characteristics**: 
+  - Tends to form compact, spherical clusters.
+  - **Disadvantage**: May break large clusters into smaller sub-clusters.
 
-#### 3. Average Linkage
-   - Defines the distance between two clusters as the **average distance** between all pairs of points where one point is from one cluster and the other is from the other.
-   - **Characteristics**: Compromise between single and complete linkage.
+3. **Average Linkage**
+- **Definition**: Distance between two clusters is the **average distance** between all pairs of points, with one point from each cluster.
+- **Characteristics**: 
+  - Balances the traits of single and complete linkage.
+  - Less sensitive to outliers compared to single linkage.
 
-#### 4. Ward's Method
-   - Minimizes the increase in **total within-cluster variance** when merging two clusters, measured as the change in error sum of squares.
-   - **Characteristics**: Tends to create compact, spherical clusters; minimizes within-cluster variance at each merging step.
+4. **Ward's Method**
+- **Definition**: Measures the increase in variance when clusters are merged by calculating the **difference in squared distance sums** before and after merging clusters.
+- **Characteristics**: 
+  - Creates compact, spherical clusters.
+  - Minimizes within-cluster variance at each step.
+
 
 ### Finding the Ideal Number of Clusters
 
