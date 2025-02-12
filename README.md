@@ -307,15 +307,13 @@ where:
 - **Uniform Method:** This method uses the average of the feature values of the K nearest neighbors. You can define the number of neighbors (K) and fill in missing values based on their average. 
 - **Distance Method:** In this method, the weighted average of the feature values is calculated, where the weights are the inverse of the non-Euclidean distance: $\frac{\sum\frac{1}{dist}*\text{feature Value}}{\sum\frac{1}{dist}}$
 
-
-| **Row** | **Feature 1** | **Feature 2** | **Feature 3** |
-|---------|---------------|---------------|---------------|
-| 0       | 1.0           | 2.0           | 1.5           |
-| 1       | 2.0           |$= \frac{\left(\frac{1}{1.632} \times 2.0\right) + \left(\frac{1}{0.816} \times 6.0\right) + \left(\frac{1}{4.268} \times 8.0\right) + \left(\frac{1}{3.464} \times 10.0\right)}{\left(\frac{1}{1.632} + \frac{1}{0.816} + \frac{1}{4.268} + \frac{1}{3.464}\right)}  \approx 5.65$ | 2.5           |
-| 2       |$= \frac{\left(\frac{1}{5.477} \times 1.0\right) + \left(\frac{1}{0.816} \times 2.0\right) + \left(\frac{1}{1.632} \times 4.0\right) + \left(\frac{1}{5.477} \times 5.0\right)}{\left(\frac{1}{5.477} + \frac{1}{0.816} + \frac{1}{1.632} + \frac{1}{5.477}\right)} \approx 3.82$| 6.0           | 3.5           |
-| 3       | 4.0           | 8.0           |$= \frac{\left(\frac{1}{9.486} \times 1.5\right) + \left(\frac{1}{4.268} \times 2.5\right) + \left(\frac{1}{1.632} \times 3.5\right) + \left(\frac{1}{2.581} \times 5.5\right)}{\left(\frac{1}{9.486} + \frac{1}{4.268} + \frac{1}{1.632} + \frac{1}{2.581}\right)} \approx 3.75$|
-| 4       | 5.0           | 10.0          | 5.5           |
-
+| **Row** | **feature1** | **feature2** | **feature3** |
+|---------|-------------|-------------|-------------|
+| **0**   | 1.0         | 2.0         | 1.5         |
+| **1**   | 2.0         | **$\frac{\left(\frac{1}{1.732} \times 2.0\right) + \left(\frac{1}{3.464} \times 6.0\right) + \left(\frac{1}{4.268} \times 8.0\right) + \left(\frac{1}{5.000} \times 10.0\right)}{\frac{1}{1.732} + \frac{1}{3.464} + \frac{1}{4.268} + \frac{1}{5.000}}$= $\frac{\left(1.154 \times 2\right) + \left(0.289 \times 6\right) + \left(0.234 \times 8\right) + \left(0.200 \times 10\right)}{1.154 + 0.289 + 0.234 + 0.200}$= $\frac{2.308 + 1.732 + 1.872 + 2.000}{1.877} = \mathbf{5.71}$** | 2.5         |
+| **2**   | **$\frac{\left(\frac{1}{5.477} \times 1.0\right) + \left(\frac{1}{1.225} \times 2.0\right) + \left(\frac{1}{2.000} \times 4.0\right) + \left(\frac{1}{4.472} \times 5.0\right)}{\frac{1}{5.477} + \frac{1}{1.225} + \frac{1}{2.000} + \frac{1}{4.472}}$= $\frac{\left(0.183 \times 1\right) + \left(0.816 \times 2\right) + \left(0.500 \times 4\right) + \left(0.224 \times 5\right)}{0.183 + 0.816 + 0.500 + 0.224}$= $\frac{0.183 + 1.632 + 2.000 + 1.120}{1.723} = \mathbf{2.70}$** | 6.0         | 3.5         |
+| **3**   | 4.0         | 8.0         | **$\frac{\left(\frac{1}{9.486} \times 1.5\right) + \left(\frac{1}{4.268} \times 2.5\right) + \left(\frac{1}{2.000} \times 3.5\right) + \left(\frac{1}{1.000} \times 5.5\right)}{\frac{1}{9.486} + \frac{1}{4.268} + \frac{1}{2.000} + \frac{1}{1.000}}$= $\frac{\left(0.105 \times 1.5\right) + \left(0.234 \times 2.5\right) + \left(0.500 \times 3.5\right) + \left(1.000 \times 5.5\right)}{0.105 + 0.234 + 0.500 + 1.000}$= $\frac{0.158 + 0.585 + 1.750 + 5.500}{1.839} = \mathbf{3.85}$** |
+| **4**   | 5.0         | 10.0        | 5.5         |
 
 ---
 
