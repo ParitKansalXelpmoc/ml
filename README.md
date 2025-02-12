@@ -265,8 +265,10 @@ Remove rows that have missing values but only if
 | **3**   | 4.0          | 8.0          | NaN          |
 | **4**   | 5.0          | 10.0         | 5.5          |
 
+#### **Step 1: Calculate Squared Euclidean Distance**
+We compute the squared Euclidean distance for each pair of rows using only the available (non-missing) values.
 
-#### Step 1: **Calculate Squared Euclidean Distance**
+$\text{Distance}(A, B) = \sum (\text{feature}_i^{(A)} - \text{feature}_i^{(B)})^2$
 
 |           | **Row 0** | **Row 1** | **Row 2** | **Row 3** | **Row 4** |
 |-----------|-----------|-----------|-----------|-----------|-----------|
@@ -276,18 +278,30 @@ Remove rows that have missing values but only if
 | **Row 3** | 45        | 34.25     | 4         | 0         | 5         |
 | **Row 4** | 96        | 18        | 20        | 5         | 0         |
 
-#### Step 2: **Non-Euclidean Distances:**
+#### **Step 2: Adjust Distance Using Missing Values**
+We modify the squared Euclidean distance to account for missing values using the formula:
 
-$\sqrt{\text{Squared distace}*\frac{\text{Total No of columns}}{\text{no of cols filled in row}}}$
+$\text{Adjusted Distance} = \sqrt{\text{Squared Distance} \times \frac{\text{Total Columns}}{\text{Columns Used}}}$
 
-|           | **Row 0**                             | **Row 1**                             | **Row 2**                             | **Row 3**                             | **Row 4**                             |
-|-----------|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|---------------------------------------|
-| **Row 0** | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 0)} = 0$ | $\sqrt{\frac{3}{2} \cdot \text{dis}(0, 1)} = 1.732$ | $\sqrt{\frac{3}{2} \cdot \text{dis}(0, 2)} = 5.477$ | $\sqrt{\frac{3}{2} \cdot \text{dis}(0, 3)} = 9.486$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(0, 4)} = 16.970$ |
-| **Row 1** | $\sqrt{\frac{3}{2} \cdot \text{dis}(1, 0)} = 1.632$ | $\sqrt{\frac{3}{2} \cdot \text{dis}(1, 1)} = 0$ | $\sqrt{\frac{3}{1} \cdot \text{dis}(1, 2)} = 0.816$ | $\sqrt{\frac{3}{1} \cdot \text{dis}(1, 3)} = 4.268$ | $\sqrt{\frac{3}{2} \cdot \text{dis}(1, 4)} = 3.464$ |
-| **Row 2** | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 0)} = 5.477$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 1)} = 0.816$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 2)} = 0$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 3)} = 1.632$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(2, 4)} = 5.477$ |
-| **Row 3** | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 0)} = 9.486$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 1)} = 4.268$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 2)} = 1.632$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 3)} = 0$ | $\sqrt{\frac{2}{3} \cdot \text{dis}(3, 4)} = 2.581$ |
-| **Row 4** | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 0)} = 16.970$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 1)} = 3.464$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 2)} = 5.477$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 3)} = 2.581$ | $\sqrt{\frac{3}{3} \cdot \text{dis}(4, 4)} = 0$ |
+where:
+- **Total Columns** = 3 (feature1, feature2, feature3)
+- **Columns Used** = Number of non-missing values used in distance computation.
 
+|           | **Row 0** | **Row 1** | **Row 2** | **Row 3** | **Row 4** |
+|-----------|-----------|-----------|-----------|-----------|-----------|
+| **Row 0** | $\sqrt{0 \times \frac{3}{3}} = 0.000$ | $\sqrt{2 \times \frac{3}{2}} = \sqrt{3} = 1.732$ | $\sqrt{20 \times \frac{3}{2}} = \sqrt{30} = 5.477$ | $\sqrt{45 \times \frac{3}{2}} = \sqrt{67.5} = 9.486$ | $\sqrt{96 \times \frac{3}{3}} = \sqrt{96} = 16.970$ |
+| **Row 1** | $\sqrt{2 \times \frac{3}{2}} = \sqrt{3} = 1.732$ | $\sqrt{0 \times \frac{3}{3}} = 0.000$ | $\sqrt{1 \times \frac{3}{1}} = \sqrt{3} = 0.816$ | $\sqrt{34.25 \times \frac{3}{1}} = \sqrt{102.75} = 4.268$ | $\sqrt{18 \times \frac{3}{2}} = \sqrt{27} = 3.464$ |
+| **Row 2** | $\sqrt{20 \times \frac{3}{2}} = \sqrt{30} = 5.477$ | $\sqrt{1 \times \frac{3}{1}} = \sqrt{3} = 0.816$ | $\sqrt{0 \times \frac{3}{3}} = 0.000$ | $\sqrt{4 \times \frac{3}{2}} = \sqrt{6} = 2.000$ | $\sqrt{20 \times \frac{3}{2}} = \sqrt{30} = 4.472$ |
+| **Row 3** | $\sqrt{45 \times \frac{3}{2}} = \sqrt{67.5} = 9.486$ | $\sqrt{34.25 \times \frac{3}{1}} = \sqrt{102.75} = 4.268$ | $\sqrt{4 \times \frac{3}{2}} = \sqrt{6} = 2.000$ | $\sqrt{0 \times \frac{3}{3}} = 0.000$ | $\sqrt{5 \times \frac{3}{2}} = \sqrt{7.5} = 2.236$ |
+| **Row 4** | $\sqrt{96 \times \frac{3}{3}} = \sqrt{96} = 16.970$ | $\sqrt{18 \times \frac{3}{2}} = \sqrt{27} = 3.464$ | $\sqrt{20 \times \frac{3}{2}} = \sqrt{30} = 4.472$ | $\sqrt{5 \times \frac{3}{2}} = \sqrt{7.5} = 2.236$ | $\sqrt{0 \times \frac{3}{3}} = 0.000$ |
+
+|           | **Row 0** | **Row 1** | **Row 2** | **Row 3** | **Row 4** |
+|-----------|-----------|-----------|-----------|-----------|-----------|
+| **Row 0** | 0.000     | 1.732     | 5.477     | 9.486     | 16.970    |
+| **Row 1** | 1.732     | 0.000     | 0.816     | 4.268     | 3.464     |
+| **Row 2** | 5.477     | 0.816     | 0.000     | 2.000     | 4.472     |
+| **Row 3** | 9.486     | 4.268     | 2.000     | 0.000     | 2.236     |
+| **Row 4** | 16.970    | 3.464     | 4.472     | 2.236     | 0.000     |
 
 #### Step 3: **Apply Uniform or dist method for finding missing values**
 - **Uniform Method:** This method uses the average of the feature values of the K nearest neighbors. You can define the number of neighbors (K) and fill in missing values based on their average. 
