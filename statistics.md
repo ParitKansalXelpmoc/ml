@@ -193,4 +193,24 @@ Where:
 
 ---
 
+### **Z-test**  
+$CI = \bar{X} \pm Z_{\alpha/2} \times \frac{\sigma}{\sqrt{n}}$  
+where:  
+- $\bar{X}$ = sample mean  
+- $Z_{\alpha/2}$ = critical Z-score for the given confidence level  
+- $\sigma$ = population standard deviation  
+- $n$ = sample size
+- $1-\alpha$ = confidence level
+
+### **T-test**  
+$CI = \bar{X} \pm t_{\alpha/2, df} \times \frac{s}{\sqrt{n}}$  
+where:  
+- $\bar{X}$ = sample mean  
+- $t_{\alpha/2, df}$ = critical t-score for the given confidence level and degrees of freedom  
+- $s$ = sample standard deviation  
+- $n$ = sample size  
+- $df = n - 1$ (degrees of freedom)  
+- $1-\alpha$ = confidence level
+
+---
 
