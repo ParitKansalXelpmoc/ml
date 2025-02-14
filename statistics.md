@@ -153,3 +153,44 @@ Correlations can provide valuable insights into relationships between variables,
 ### Creating Probability Distribution Functions  
 
 [![YouTube](https://www.youtube.com/watch?v=C_QAURbgBqY)](https://www.youtube.com/watch?v=C_QAURbgBqY)  
+
+---
+
+### **Skewness**  
+
+Skewness measures the asymmetry of a probability distribution. Below are the different formulas used to calculate skewness:  
+
+#### **1. Pearson’s First Coefficient of Skewness**  
+$S_1 = \frac{3 (\bar{x} - \text{Median})}{s}$
+Where:  
+- $\bar{x}$ = Mean  
+- $s$ = Standard deviation  
+- **Used when mode is difficult to determine**  
+
+#### **2. Pearson’s Second Coefficient of Skewness**  
+$S_2 = \frac{\bar{x} - \text{Mode}}{s}$
+Where:  
+- **Used when mode is available**  
+
+#### **3. Moment Coefficient of Skewness (Fisher’s Skewness)**  
+$Skewness = \frac{n}{(n-1)(n-2)} \sum \left(\frac{x_i - \bar{x}}{s}\right)^3$
+Where:  
+- $x_i$ = Individual data points  
+- $n$ = Number of data points  
+- **More accurate for larger datasets**  
+
+#### **4. Bowley’s Skewness (Quartile-Based Skewness)**  
+$S_Q = \frac{(Q_3 - Q_2) - (Q_2 - Q_1)}{Q_3 - Q_1}$
+Where:  
+- $Q_1, Q_2, Q_3$ = First, second (median), and third quartiles  
+- **Used for ordinal data or when outliers affect mean-based measures**  
+
+#### **5. Kelly’s Skewness (Decile-Based Skewness)**  
+$S_K = \frac{(P_{90} - P_{50}) - (P_{50} - P_{10})}{P_{90} - P_{10}}$
+Where:  
+- $P_{10}, P_{50}, P_{90}$ = 10th, 50th (median), and 90th percentiles  
+- **Useful for large datasets with extreme values**
+
+---
+
+
